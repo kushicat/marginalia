@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GRE/SAT Vocabulary</title>
+<style>
+  :root {
+    --bg: #0f0f13;
+    --surface: #1a1a24;
+    --surface2: #22222f;
+    --border: #2e2e40;
+    --accent: #7c5cfc;
+    --accent2: #5b8dee;
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --text: #f0f0f8;
+    --muted: #8888aa;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+  /* NAV */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 60px; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-size: 18px; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-tabs { display: flex; gap: 4px; }
+  .nav-tab { background: none; border: none; color: var(--muted); padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: all 0.15s; }
+  .nav-tab:hover { background: var(--surface2); color: var(--text); }
+  .nav-tab.active { background: var(--accent); color: #fff; }
+  .word-count { font-size: 13px; color: var(--muted); }
+
+  /* MAIN */
+  main { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  /* LOADING */
+  #loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 16px; }
+  .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { color: var(--muted); font-size: 15px; }
+
+  /* SECTIONS */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* HERO (Read tab) */
+  .hero { text-align: center; margin-bottom: 2rem; }
+  .hero h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .hero p { color: var(--muted); font-size: 15px; }
+
+  /* LETTER FILTER */
+  .letter-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .letter-btn { width: 36px; height: 36px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
+  .letter-btn:hover { border-color: var(--accent); color: var(--text); }
+  .letter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .letter-btn.empty { opacity: 0.25; cursor: default; }
+
+  /* GENERATE BTN */
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border: none; padding: 12px 28px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.15s, transform 0.1s; }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.4; cursor: default; transform: none; }
+  .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); padding: 10px 22px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* PARAGRAPH CARD */
+  .para-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin: 1.5rem 0; line-height: 1.9; font-size: 16px; position: relative; }
+  .para-card .label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .highlight { color: var(--accent); font-weight: 600; cursor: pointer; border-bottom: 2px dashed var(--accent); padding-bottom: 1px; transition: color 0.1s; }
+  .highlight:hover { color: var(--accent2); border-color: var(--accent2); }
+
+  /* TOOLTIP */
+  .tooltip { position: fixed; background: var(--surface2); border: 1px solid var(--accent); border-radius: var(--radius-sm); padding: 12px 16px; max-width: 260px; z-index: 999; pointer-events: none; opacity: 0; transition: opacity 0.15s; }
+  .tooltip.show { opacity: 1; pointer-events: auto; }
+  .tooltip-word { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .tooltip-def { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .tooltip-close { position: absolute; top: 8px; right: 10px; cursor: pointer; color: var(--muted); font-size: 16px; }
+
+  /* TAGS */
+  .word-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 1rem 0; }
+  .word-tag { background: rgba(124,92,252,0.15); color: var(--accent); border: 1px solid rgba(124,92,252,0.3); border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 500; }
+
+  /* WORD LIST */
+  .search-bar { width: 100%; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 15px; margin-bottom: 1rem; outline: none; transition: border-color 0.15s; }
+  .search-bar:focus { border-color: var(--accent); }
+  .word-grid { display: grid; gap: 8px; }
+  .word-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; display: flex; gap: 16px; align-items: flex-start; transition: border-color 0.15s; cursor: default; }
+  .word-item:hover { border-color: var(--accent); }
+  .word-name { font-weight: 600; font-size: 14px; color: var(--accent); min-width: 140px; flex-shrink: 0; }
+  .word-def { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .alpha-group { margin-bottom: 1.5rem; }
+  .alpha-header { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* EXAM */
+  .exam-passage { background: var(--surface); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); padding: 1.25rem 1.5rem; margin-bottom: 2rem; font-size: 15px; line-height: 1.8; color: var(--muted); }
+  .question-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
+  .question-text { font-size: 15px; font-weight: 600; margin-bottom: 1rem; color: var(--text); }
+  .q-num { display: inline-block; background: var(--accent); color: #fff; width: 26px; height: 26px; border-radius: 50%; text-align: center; line-height: 26px; font-size: 12px; font-weight: 700; margin-right: 8px; flex-shrink: 0; }
+  .options { display: grid; gap: 8px; }
+  .option { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 11px 16px; font-size: 14px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 10px; }
+  .option:hover { border-color: var(--accent); color: var(--accent); }
+  .option.selected { border-color: var(--accent); background: rgba(124,92,252,0.15); color: var(--accent); }
+  .option.correct { border-color: var(--green); background: rgba(34,197,94,0.12); color: var(--green); }
+  .option.wrong { border-color: var(--red); background: rgba(239,68,68,0.12); color: var(--red); }
+  .option-letter { width: 24px; height: 24px; border-radius: 50%; border: 1px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+
+  /* SCORE CARD */
+  .score-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; margin-top: 1.5rem; }
+  .score-big { font-size: 56px; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .score-label { font-size: 16px; color: var(--muted); margin-top: 4px; }
+  .score-msg { font-size: 18px; font-weight: 600; margin: 12px 0; }
+
+  /* STATS BAR */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
+  .stat-num { font-size: 24px; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* AI STATUS */
+  .ai-status { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 13px; color: var(--muted); }
+  .ai-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .flex-gap { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem; }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 1rem; }
+    .nav-tab { padding: 8px 12px; font-size: 13px; }
+    main { padding: 1rem; }
+    .stats { grid-template-columns: repeat(3,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">📚 VocabGRE</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('read')">Read</button>
+    <button class="nav-tab" onclick="switchTab('words')">Words</button>
+    <button class="nav-tab" onclick="switchTab('exam')">Exam</button>
+  </div>
+  <div class="word-count" id="wordCount">Loading…</div>
+</nav>
+
+<main>
+  <!-- LOADING -->
+  <div id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Loading your word list…</div>
+  </div>
+
+  <!-- READ TAB -->
+  <div class="section" id="sec-read">
+    <div class="hero">
+      <h1>GRE/SAT Vocabulary Reader</h1>
+      <p>Generate academic passages. Click any highlighted word to see its meaning.</p>
+    </div>
+
+    <div class="stats" id="readStats"></div>
+
+    <div class="ai-status"><div class="ai-dot"></div> AI-powered passages · Updates when you edit your Google Sheet</div>
+
+    <div style="margin-bottom:10px;font-size:13px;color:var(--muted);">Select letter group:</div>
+    <div class="letter-bar" id="letterBar"></div>
+
+    <div class="flex-gap">
+      <button class="btn-primary" id="genBtn" onclick="generateParagraph()">✦ Generate Passage</button>
+      <button class="btn-secondary" id="reloadBtn" onclick="reloadWords()">↻ Reload Words</button>
+    </div>
+
+    <div id="paraArea"></div>
+  </div>
+
+  <!-- WORDS TAB -->
+  <div class="section" id="sec-words">
+    <input class="search-bar" id="searchInput" placeholder="🔍  Search words…" oninput="renderWordList()"/>
+    <div id="wordListArea"></div>
+  </div>
+
+  <!-- EXAM TAB -->
+  <div class="section" id="sec-exam">
+    <div id="examArea">
+      <div style="text-align:center;padding:3rem;color:var(--muted);">
+        <div style="font-size:48px;margin-bottom:12px;">📝</div>
+        <div style="font-size:16px;margin-bottom:8px;color:var(--text);font-weight:600;">No passage yet</div>
+        <div style="font-size:14px;">Go to the <strong style="color:var(--accent)">Read</strong> tab, generate a passage, then come back to test yourself.</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tooltip">
+  <div class="tooltip-close" onclick="hideTooltip()">✕</div>
+  <div class="tooltip-word" id="tt-word"></div>
+  <div class="tooltip-def" id="tt-def"></div>
+</div>
+
+<script>
+const SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT_BL5Xuy4o1x66MxHldlA1DNotJli_9rkkIiGl520Vge6OGjeJeuruBXcOMMgY9WOP3jg5r8cg3RNs/pub?gid=0&single=true&output=csv";
+const API_KEY = ""; // Leave blank — uses claude.ai proxy when embedded; add your key for standalone
+const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+let words = {};
+let activeLetter = "A";
+let lastParagraph = null;
+let lastUsedWords = [];
+let examQuestions = [];
+let examAnswers = {};
+let examSubmitted = false;
+
+// ── FETCH WORDS ──────────────────────────────────────────────────────────────
+async function loadWords() {
+  try {
+    const res = await fetch(SHEET_CSV);
+    const text = await res.text();
+    const lines = text.split("\n").slice(1);
+    const d = {};
+    for (const line of lines) {
+      const cols = parseCSVLine(line);
+      if (cols.length >= 2) {
+        const w = cols[0].trim().toLowerCase();
+        const def = cols[1].trim();
+        if (w && def) d[w] = def;
+      }
+    }
+    words = d;
+    const count = Object.keys(words).length;
+    document.getElementById("wordCount").textContent = count + " words";
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("sec-read").classList.add("active");
+    buildLetterBar();
+    updateStats();
+    renderWordList();
+  } catch(e) {
+    document.getElementById("loading").innerHTML = `<div style="color:#ef4444;text-align:center"><div style="font-size:32px">⚠</div><div style="margin-top:8px">Failed to load word list.<br>Check your Google Sheet is published.</div></div>`;
+  }
+}
+
+function parseCSVLine(line) {
+  const res = []; let cur = ""; let inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { inQ = !inQ; }
+    else if (c === ',' && !inQ) { res.push(cur); cur = ""; }
+    else cur += c;
+  }
+  res.push(cur);
+  return res;
+}
+
+async function reloadWords() {
+  words = {};
+  document.getElementById("wordCount").textContent = "Reloading…";
+  await loadWords();
+}
+
+// ── LETTER BAR ───────────────────────────────────────────────────────────────
+function buildLetterBar() {
+  const bar = document.getElementById("letterBar");
+  bar.innerHTML = "";
+  for (const l of LETTERS) {
+    const cnt = Object.keys(words).filter(w => w[0].toUpperCase() === l).length;
+    const btn = document.createElement("button");
+    btn.className = "letter-btn" + (cnt === 0 ? " empty" : "") + (l === activeLetter ? " active" : "");
+    btn.textContent = l;
+    btn.title = cnt + " words";
+    if (cnt > 0) btn.onclick = () => setLetter(l);
+    bar.appendChild(btn);
+  }
+}
+
+function setLetter(l) {
+  activeLetter = l;
+  buildLetterBar();
+}
+
+function updateStats() {
+  const total = Object.keys(words).length;
+  const letters = new Set(Object.keys(words).map(w => w[0].toUpperCase())).size;
+  document.getElementById("readStats").innerHTML = `
+    <div class="stat"><div class="stat-num">${total}</div><div class="stat-label">Total Words</div></div>
+    <div class="stat"><div class="stat-num">${letters}</div><div class="stat-label">Letters Covered</div></div>
+    <div class="stat"><div class="stat-num">GRE</div><div class="stat-label">Difficulty Level</div></div>`;
+}
+
+// ── GENERATE PARAGRAPH ───────────────────────────────────────────────────────
+async function generateParagraph() {
+  const btn = document.getElementById("genBtn");
+  btn.disabled = true; btn.textContent = "⏳ Generating…";
+  lastParagraph = null; lastUsedWords = [];
+  document.getElementById("paraArea").innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted)"><div class="spinner" style="margin:0 auto 12px"></div>Writing your passage…</div>`;
+
+  const filtered = Object.keys(words).filter(w => w[0].toUpperCase() === activeLetter);
+  const sample = filtered.sort(() => Math.random() - 0.5).slice(0, 12);
+
+  if (sample.length === 0) {
+    document.getElementById("paraArea").innerHTML = `<div style="color:var(--muted);text-align:center;padding:2rem">No words found for letter ${activeLetter}</div>`;
+    btn.disabled = false; btn.textContent = "✦ Generate Passage"; return;
+  }
+
+  const prompt = `Write a single academic paragraph (130-160 words) at GRE/SAT reading difficulty using as many of these words naturally as possible: ${sample.join(", ")}.
+
+The topic should be academic: science, philosophy, history, economics, or literary criticism.
+Return ONLY valid JSON with no markdown, no preamble:
+{"text":"...paragraph...","used":["word1","word2"]}`;
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        system: "You are a GRE/SAT academic passage writer. Always respond with valid JSON only — no markdown fences, no preamble.",
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content?.[0]?.text || "{}";
+    const parsed = JSON.parse(raw.replace(/```json|```/g,"").trim());
+    lastParagraph = parsed.text;
+    lastUsedWords = parsed.used || sample;
+    renderParagraph();
+    updateExamTab(false);
+  } catch(e) {
+    document.getElementById("paraArea").innerHTML = `<div style="color:#ef4444;padding:1rem">Failed to generate. Please try again.</div>`;
+  }
+  btn.disabled = false; btn.textContent = "✦ Generate Passage";
+}
+
+function renderParagraph() {
+  if (!lastParagraph) return;
+  const lower = lastUsedWords.map(w => w.toLowerCase());
+  const re = new RegExp(`\\b(${lower.map(w => w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")})\\b`, "gi");
+  const html = lastParagraph.replace(re, m => `<span class="highlight" onclick="showTooltip('${m.toLowerCase()}',event)">${m}</span>`);
+  const tags = lower.map(w => `<span class="word-tag">${w}</span>`).join("");
+  document.getElementById("paraArea").innerHTML = `
+    <div class="para-card">
+      <div class="label">Academic Passage · ${activeLetter} words</div>
+      ${html}
+    </div>
+    <div class="word-tags">${tags}</div>
+    <div class="flex-gap" style="margin-top:1rem">
+      <button class="btn-primary" onclick="goToExam()">📝 Take Exam on This Passage</button>
+    </div>`;
+}
+
+// ── TOOLTIP ──────────────────────────────────────────────────────────────────
+function showTooltip(word, e) {
+  const tt = document.getElementById("tooltip");
+  document.getElementById("tt-word").textContent = word;
+  document.getElementById("tt-def").textContent = words[word] || "Definition not found";
+  const x = Math.min(e.clientX + 10, window.innerWidth - 280);
+  const y = Math.min(e.clientY + 16, window.innerHeight - 100);
+  tt.style.left = x + "px"; tt.style.top = y + "px";
+  tt.classList.add("show");
+  e.stopPropagation();
+}
+function hideTooltip() { document.getElementById("tooltip").classList.remove("show"); }
+document.addEventListener("click", hideTooltip);
+
+// ── WORD LIST ─────────────────────────────────────────────────────────────────
+function renderWordList() {
+  const q = (document.getElementById("searchInput")?.value || "").toLowerCase().trim();
+  const area = document.getElementById("wordListArea");
+  const sorted = Object.entries(words).filter(([w,d]) => !q || w.includes(q) || d.toLowerCase().includes(q)).sort((a,b)=>a[0].localeCompare(b[0]));
+  if (sorted.length === 0) { area.innerHTML = `<div style="color:var(--muted);text-align:center;padding:2rem">No words found</div>`; return; }
+  if (q) {
+    area.innerHTML = `<div style="font-size:13px;color:var(--muted);margin-bottom:12px">${sorted.length} results</div>` +
+      sorted.map(([w,d]) => `<div class="word-item"><div class="word-name">${w}</div><div class="word-def">${d}</div></div>`).join("");
+    return;
+  }
+  let html = `<div style="font-size:13px;color:var(--muted);margin-bottom:16px">${sorted.length} words</div>`;
+  let curL = "";
+  for (const [w,d] of sorted) {
+    const l = w[0].toUpperCase();
+    if (l !== curL) { if (curL) html += `</div>`; html += `<div class="alpha-group"><div class="alpha-header">${l}</div>`; curL = l; }
+    html += `<div class="word-item"><div class="word-name">${w}</div><div class="word-def">${d}</div></div>`;
+  }
+  if (curL) html += `</div>`;
+  area.innerHTML = html;
+}
+
+// ── EXAM ──────────────────────────────────────────────────────────────────────
+function updateExamTab(ready) {
+  if (!ready) {
+    document.getElementById("examArea").innerHTML = `
+      <div style="text-align:center;padding:2rem">
+        <div style="font-size:15px;color:var(--text);font-weight:600;margin-bottom:8px">Passage ready!</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:20px">Click below to generate context-based exam questions from your passage.</div>
+        <button class="btn-primary" onclick="generateExam()">✦ Generate Exam Questions</button>
+      </div>`;
+  }
+}
+
+function goToExam() {
+  switchTab("exam");
+  updateExamTab(false);
+}
+
+async function generateExam() {
+  if (!lastParagraph) return;
+  examQuestions = []; examAnswers = {}; examSubmitted = false;
+  document.getElementById("examArea").innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted)"><div class="spinner" style="margin:0 auto 12px"></div>Writing exam questions…</div>`;
+
+  const prompt = `Based on this academic passage:
+"${lastParagraph}"
+
+Words used: ${lastUsedWords.join(", ")}
+
+Create 5 vocabulary-in-context multiple choice questions in GRE style. Each tests a highlighted word's meaning as used in context.
+
+Return ONLY valid JSON array:
+[{"q":"As used in the passage, the word X most nearly means...","word":"x","opts":["A. ...","B. ...","C. ...","D. ..."],"ans":"A. ..."}]
+
+Make distractors plausible. ans must exactly match one of opts.`;
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        system: "You are a GRE exam question writer. Return only valid JSON arrays — no markdown, no preamble.",
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content?.[0]?.text || "[]";
+    examQuestions = JSON.parse(raw.replace(/```json|```/g,"").trim());
+    renderExam();
+  } catch(e) {
+    document.getElementById("examArea").innerHTML = `<div style="color:#ef4444;padding:1rem">Failed to generate questions. Please try again.<br><button class="btn-secondary" style="margin-top:10px" onclick="generateExam()">Retry</button></div>`;
+  }
+}
+
+function renderExam() {
+  const letters = ["A","B","C","D"];
+  let html = `<div class="exam-passage"><strong style="color:var(--accent);font-size:12px;letter-spacing:1px;text-transform:uppercase">Passage</strong><br><br>${lastParagraph}</div>`;
+  for (let i = 0; i < examQuestions.length; i++) {
+    const q = examQuestions[i];
+    html += `<div class="question-card" id="qc-${i}">
+      <div class="question-text"><span class="q-num">${i+1}</span>${q.q}</div>
+      <div class="options">`;
+    for (let j = 0; j < q.opts.length; j++) {
+      html += `<div class="option" id="opt-${i}-${j}" onclick="selectAnswer(${i},${j},'${q.opts[j].replace(/'/g,"\\'")}')">
+        <span class="option-letter">${letters[j]}</span>${q.opts[j]}</div>`;
+    }
+    html += `</div></div>`;
+  }
+  html += `<button class="btn-primary" id="submitBtn" onclick="submitExam()" style="margin-top:0.5rem">Submit Answers</button>`;
+  document.getElementById("examArea").innerHTML = html;
+}
+
+function selectAnswer(qi, oi, val) {
+  if (examSubmitted) return;
+  examAnswers[qi] = val;
+  for (let j = 0; j < 4; j++) {
+    const el = document.getElementById(`opt-${qi}-${j}`);
+    if (el) el.classList.toggle("selected", examAnswers[qi] === examQuestions[qi].opts[j]);
+  }
+}
+
+function submitExam() {
+  if (Object.keys(examAnswers).length < examQuestions.length) {
+    alert("Please answer all questions before submitting."); return;
+  }
+  examSubmitted = true;
+  let score = 0;
+  for (let i = 0; i < examQuestions.length; i++) {
+    const correct = examQuestions[i].ans;
+    for (let j = 0; j < 4; j++) {
+      const el = document.getElementById(`opt-${i}-${j}`);
+      if (!el) continue;
+      const val = examQuestions[i].opts[j];
+      el.classList.remove("selected");
+      if (val === correct) { el.classList.add("correct"); }
+      else if (examAnswers[i] === val) { el.classList.add("wrong"); }
+    }
+    if (examAnswers[i] === correct) score++;
+  }
+  document.getElementById("submitBtn").remove();
+  const msg = score === 5 ? "Perfect! 🎉" : score >= 4 ? "Excellent work!" : score >= 3 ? "Good job!" : "Keep practicing!";
+  const color = score >= 4 ? "var(--green)" : score >= 3 ? "var(--yellow)" : "var(--red)";
+  document.getElementById("examArea").insertAdjacentHTML("beforeend", `
+    <div class="score-card">
+      <div class="score-big" style="background:linear-gradient(135deg,${color},var(--accent2));-webkit-background-clip:text">${score}/5</div>
+      <div class="score-msg">${msg}</div>
+      <div class="score-label">Questions correct</div>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap">
+        <button class="btn-primary" onclick="generateExam()">Try New Questions</button>
+        <button class="btn-secondary" onclick="switchTab('read');generateParagraph()">New Passage</button>
+      </div>
+    </div>`);
+}
+
+// ── TAB SWITCHING ─────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".nav-tab").forEach(b => b.classList.remove("active"));
+  document.getElementById("sec-"+name).classList.add("active");
+  document.querySelectorAll(".nav-tab").forEach(b => { if (b.textContent.toLowerCase() === name) b.classList.add("active"); });
+}
+
+loadWords();
+</script>
+</body>
+</html>
