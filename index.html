@@ -12,7 +12,7 @@
   --gold:#c9a84c; --gold2:#dfc27a; --gold3:rgba(201,168,76,.12);
   --cream:#f0e6d3; --muted:#8a8478; --muted2:#5e5a54;
   --red:#c0504a; --green:#5a9e6f; --blue:#5b8fc9;
-  --shadow:0 4px 32px rgba(0,0,0,.55);
+  --shadow:0 4px 32px rgba(0,0,0,.55); 
 }
 :root[data-theme="light"]{
   --bg:#faf5e8; --bg2:#f1ead8; --bg3:#e8dfc6;
@@ -437,7 +437,8 @@ body{background:var(--bg);color:var(--cream);font-family:'Crimson Pro',Georgia,s
 <script>
 /* __SEED_START__ */
 
-const SEED = [
+window.SEED = window.SEED || [];
+SEED.push(
   {
     "id": "batch_1",
     "title": "Degrees Without Depth",
@@ -11865,7 +11866,8 @@ const SEED = [
       ]
     }
   }
-];
+);
+
 /* __SEED_END__ */
 // ═══════════════════════════════════════════
 //  THEME
