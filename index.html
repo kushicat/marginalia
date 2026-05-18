@@ -7,220 +7,367 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root[data-theme="dark"]{
-  --bg:#111318; --bg2:#181b23; --bg3:#1e2130; --bg4:#252840;
-  --border:rgba(200,170,100,.18); --border2:rgba(200,170,100,.28);
+  --bg:#111318; --bg2:#181b23; --bg3:#1e2130;
+  --border:rgba(200,170,100,.18); --border2:rgba(200,170,100,.3);
   --gold:#c9a84c; --gold2:#dfc27a; --gold3:rgba(201,168,76,.12);
-  --cream:#f0e6d3; --muted:#8a8478; --muted2:#6a6660;
+  --cream:#f0e6d3; --muted:#8a8478; --muted2:#5e5a54;
   --red:#c0504a; --green:#5a9e6f; --blue:#5b8fc9;
   --shadow:0 4px 32px rgba(0,0,0,.55);
 }
 :root[data-theme="light"]{
-  --bg:#faf5e8; --bg2:#f1ead8; --bg3:#e8dfc6; --bg4:#ddd1b0;
+  --bg:#faf5e8; --bg2:#f1ead8; --bg3:#e8dfc6;
   --border:rgba(100,70,20,.18); --border2:rgba(100,70,20,.32);
   --gold:#8a6d1f; --gold2:#6e5418; --gold3:rgba(138,109,31,.1);
-  --cream:#2a2118; --muted:#6e5e44; --muted2:#8b7a5c;
+  --cream:#2a2118; --muted:#6e5e44; --muted2:#9c8a6e;
   --red:#a83a34; --green:#3e7a4e; --blue:#3a6da3;
   --shadow:0 2px 18px rgba(80,60,20,.12);
 }
-:root{ --r:10px; --sidebar-w:240px; }
+:root{ --r:10px; --sb-w:238px; --tab-w:18px; --ease:.35s cubic-bezier(.4,0,.2,1); }
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
+html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--cream);font-family:'Crimson Pro',Georgia,serif;font-size:1.1rem;line-height:1.8;min-height:100vh;transition:background .3s,color .3s}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:rgba(150,120,60,.3);border-radius:3px}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(150,120,60,.3);border-radius:3px}
 
-.app{display:flex;min-height:100vh}
-.sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;transition:background .3s,border-color .3s}
-.main{flex:1;min-width:0;padding:0 3rem 8rem;max-width:920px}
+/* ── App shell ── */
+.app{ display:block; }
 
-/* Sidebar head */
-.sb-head{padding:1.4rem 1.2rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.5rem}
-.sb-brand{font-family:'Playfair Display',serif;font-size:1.3rem;font-style:italic;font-weight:600;color:var(--gold2);line-height:1.1;letter-spacing:-.01em}
-.sb-brand .sub{display:block;font-family:'JetBrains Mono',monospace;font-style:normal;font-weight:400;font-size:.55rem;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-top:.35rem}
-.theme-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer;transition:color .2s,border-color .2s,transform .3s;flex-shrink:0}
-.theme-btn:hover{color:var(--gold2);border-color:var(--gold);transform:rotate(20deg)}
-
-/* TOC */
-.sb-toc{flex:1;padding:.8rem 0 1rem;overflow-y:auto}
-.toc-static{padding:0 1rem .8rem;border-bottom:1px solid var(--border);margin-bottom:.6rem}
-.toc-static a{display:block;font-family:'Crimson Pro',serif;font-size:.9rem;color:var(--muted);text-decoration:none;padding:.3rem 0;transition:color .15s}
-.toc-static a:hover,.toc-static a.active{color:var(--gold2)}
-.toc-group{margin-bottom:.2rem}
-.toc-batch-label{display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem .3rem;font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);user-select:none}
-.toc-batch-num{background:var(--gold3);border:1px solid var(--border2);border-radius:3px;padding:.1rem .35rem;font-size:.58rem}
-.toc-links{padding-left:.5rem}
-.toc-links a{display:block;font-family:'Crimson Pro',serif;font-size:.86rem;color:var(--muted);text-decoration:none;padding:.25rem .8rem .25rem 1.2rem;border-left:2px solid transparent;transition:color .15s,border-color .15s;line-height:1.4}
-.toc-links a:hover,.toc-links a.active{color:var(--gold2);border-left-color:var(--gold)}
-
-/* Sidebar footer + actions */
-.sb-footer{padding:.8rem 1.2rem 1rem;border-top:1px solid var(--border)}
-.actions{display:flex;flex-direction:column;gap:.45rem}
-.btn-primary{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.65rem .8rem;background:var(--gold);border:1px solid var(--gold);border-radius:7px;color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-weight:500;transition:all .2s}
-.btn-primary:hover{background:var(--gold2);border-color:var(--gold2)}
-.btn-icon-row{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
-.btn-icon{display:flex;align-items:center;justify-content:center;gap:.35rem;padding:.5rem .5rem;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .2s}
-.btn-icon:hover{color:var(--gold2);border-color:var(--gold);background:var(--gold3)}
-.btn-wide{display:flex;align-items:center;justify-content:center;gap:.45rem;padding:.55rem .6rem;background:var(--gold3);border:1px solid var(--border2);border-radius:6px;color:var(--gold2);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;font-weight:500;transition:all .2s}
-.btn-wide:hover{background:var(--gold);color:var(--bg);border-color:var(--gold)}
-.credit{margin-top:.8rem;padding-top:.7rem;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--muted2);letter-spacing:.08em;text-align:center}
-.credit em{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold2);text-transform:none;letter-spacing:0;font-size:.78rem;font-weight:600}
-
-/* Main hero + about */
-.app-header{padding:2.8rem 0 0}
-.hero-tag{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);background:var(--gold3);border:1px solid var(--border2);border-radius:4px;padding:.22rem .65rem;display:inline-block;margin-bottom:1.2rem}
-.app-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:var(--cream);line-height:1.05;margin-bottom:.6rem;letter-spacing:-.015em}
-.app-hero h1 em{font-style:italic;color:var(--gold2)}
-.app-hero-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:1.1rem;color:var(--muted);margin-bottom:1.8rem;max-width:580px;line-height:1.5}
-
-/* About */
-.about{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.6rem 1.8rem;margin-bottom:3rem;transition:background .3s,border-color .3s}
-.about h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:var(--cream);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
-.about h2::before{content:'§';color:var(--gold);font-style:italic;font-size:1.4rem}
-.about p{font-size:1rem;color:var(--cream);margin-bottom:.9rem;line-height:1.7;opacity:.92}
-.about p:last-child{margin-bottom:0}
-.about .row{display:flex;flex-wrap:wrap;gap:1.2rem;margin-top:.4rem}
-.about-tier{flex:1;min-width:180px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.7rem .9rem}
-.about-tier .lbl{font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:.25rem}
-.about-tier .desc{font-size:.88rem;color:var(--muted);line-height:1.55}
-.about code{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--bg);padding:.1em .35em;border-radius:3px;color:var(--gold2);border:1px solid var(--border)}
-
-.app-divider{border:none;border-top:1px solid var(--border);margin:0 0 3rem}
-
-/* Batch */
-.batch-section{margin-bottom:5rem;animation:fadeUp .5s ease both}
-.batch-banner{background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem 1.8rem;margin-bottom:2.5rem;position:relative;overflow:hidden;transition:background .3s,border-color .3s}
-.batch-banner::before{content:'';position:absolute;top:0;right:0;width:120px;height:100%;background:linear-gradient(90deg,transparent,var(--gold3));pointer-events:none}
-.batch-banner-row{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;position:relative;z-index:1}
-.batch-num-tag{font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);background:var(--gold3);border:1px solid var(--border2);border-radius:3px;padding:.18rem .55rem;display:inline-block;margin-bottom:.6rem}
-.batch-title{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;color:var(--cream);line-height:1.25;margin-bottom:.2rem}
-.batch-subtitle{font-style:italic;color:var(--muted);font-size:.95rem}
-.batch-meta{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
-.meta-tag{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:.18rem .5rem;display:flex;align-items:center;gap:.3rem}
-.meta-tag .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:.7;flex-shrink:0}
-.meta-tag.freq{color:var(--gold2);border-color:var(--border2);background:var(--gold3)}
-.batch-actions{display:flex;gap:.4rem}
-.del-batch-btn{font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:transparent;border:1px solid var(--border);border-radius:5px;padding:.28rem .55rem;cursor:pointer;transition:color .2s,border-color .2s}
-.del-batch-btn:hover{color:var(--red);border-color:var(--red)}
-
-/* Subsection */
-.subsec{margin-bottom:2.5rem}
-.subsec-header{display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
-.subsec-tag{font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.13em;color:var(--gold);opacity:.85;white-space:nowrap}
-.subsec-header h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:600;color:var(--cream)}
-
-/* Passage */
-.passage-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:2.2rem 2.5rem;box-shadow:var(--shadow);transition:background .3s,border-color .3s}
-.passage-title{font-family:'Playfair Display',serif;font-size:1.45rem;font-style:italic;color:var(--gold2);margin-bottom:.3rem;line-height:1.3}
-.passage-rule{border:none;border-top:1px solid var(--border);margin:.9rem 0 1.4rem}
-.passage-card p{margin-bottom:1.2rem;font-size:1.08rem;color:var(--cream);text-align:justify;line-height:1.85;opacity:.94}
-.passage-card p:last-child{margin-bottom:0}
-.passage-break{text-align:center;color:var(--gold);opacity:.45;margin:1.5rem 0;font-size:1.1rem;letter-spacing:.55em}
-.vhl{color:var(--gold2);font-weight:600;border-bottom:1.5px dotted var(--gold);cursor:pointer;transition:color .15s,background .15s;border-radius:2px;padding:0 1px}
-.vhl:hover{color:var(--cream);background:var(--gold);border-bottom-color:var(--gold)}
-
-/* Word cards */
-.word-card{border:1px solid var(--border);border-radius:var(--r);margin-bottom:.7rem;overflow:hidden;transition:border-color .2s}
-.word-card:hover{border-color:var(--border2)}
-.word-card.flash-card{border-color:var(--gold);animation:flashBorder .9s ease}
-@keyframes flashBorder{0%,100%{border-color:var(--gold)}50%{border-color:var(--gold2);box-shadow:0 0 0 3px var(--gold3)}}
-.wc-head{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.2rem;cursor:pointer;background:var(--bg2);transition:background .15s;gap:.8rem;user-select:none}
-.wc-head:hover,.wc-head.open{background:var(--bg3)}
-.wc-title-row{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;min-width:0}
-.wc-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--gold2)}
-.wc-pos{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--muted);border:1px solid var(--border);border-radius:3px;padding:.08rem .35rem;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
-.wc-quick{font-style:italic;font-size:.88rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:320px}
-.wc-toggle{width:24px;height:24px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;flex-shrink:0;transition:transform .3s,background .2s;color:var(--muted)}
-.wc-head.open .wc-toggle{transform:rotate(180deg);background:var(--gold3);color:var(--gold)}
-.wc-body{display:none;padding:1.1rem 1.2rem 1.3rem;border-top:1px solid var(--border);background:var(--bg)}
-.wc-body.open{display:block}
-.wc-meaning{font-size:1.02rem;color:var(--cream);margin-bottom:.85rem;line-height:1.7}
-.wc-example{background:var(--bg2);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;padding:.65rem 1rem;font-style:italic;font-size:.95rem;color:var(--cream);opacity:.85;margin-bottom:.85rem}
-.syn-row{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
-.pill-lbl{font-family:'JetBrains Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted2);margin-right:.1rem}
-.pill{font-family:'JetBrains Mono',monospace;font-size:.66rem;padding:.15rem .45rem;border-radius:3px;letter-spacing:.03em;border:1px solid}
-.pill.syn{background:rgba(91,143,201,.13);color:var(--blue);border-color:rgba(91,143,201,.25)}
-.pill.ant{background:rgba(192,80,74,.1);color:var(--red);border-color:rgba(192,80,74,.22)}
-
-/* Exam */
-.exam-part{margin-bottom:2.2rem}
-.exam-part-label{font-family:'JetBrains Mono',monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:1rem;padding-bottom:.45rem;border-bottom:1px dashed var(--border)}
-.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.9rem;transition:border-color .2s}
-.q-card:hover{border-color:var(--border2)}
-.q-num{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--gold);letter-spacing:.08em;margin-bottom:.4rem}
-.q-text{font-size:1rem;color:var(--cream);margin-bottom:.85rem;line-height:1.65}
-.q-text em{font-style:italic;color:var(--gold2)}
-.opts{display:flex;flex-direction:column;gap:.4rem}
-.opt{display:flex;align-items:center;gap:.65rem;padding:.55rem .85rem;border:1px solid var(--border);border-radius:7px;cursor:pointer;transition:all .15s;background:var(--bg);font-size:.93rem;color:var(--cream);user-select:none;opacity:.88}
-.opt:hover{border-color:var(--gold);background:var(--bg3);opacity:1}
-.opt.correct{border-color:var(--green);background:rgba(90,158,111,.1);color:var(--green);pointer-events:none;opacity:1}
-.opt.wrong{border-color:var(--red);background:rgba(192,80,74,.08);color:var(--red);pointer-events:none;opacity:1}
-.opt.disabled{pointer-events:none;opacity:.5}
-.opt-let{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);width:20px;flex-shrink:0}
-.opt.correct .opt-let{color:var(--green)}.opt.wrong .opt-let{color:var(--red)}
-.ans-reveal{display:none;margin-top:.8rem;padding:.75rem 1rem;background:var(--gold3);border:1px solid var(--border2);border-radius:7px;font-size:.92rem;color:var(--cream);opacity:.92;line-height:1.65}
-.ans-reveal.show{display:block}
-.ans-reveal strong{color:var(--gold2)}
-
-/* Modal */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:1000;display:none;place-items:center;backdrop-filter:blur(4px);padding:1rem}
-:root[data-theme="light"] .modal-overlay{background:rgba(80,60,30,.6)}
-.modal-overlay.open{display:grid}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;width:min(680px,94vw);max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.6);animation:modalIn .25s ease}
-@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.modal-head{display:flex;align-items:center;justify-content:space-between;padding:1.3rem 1.6rem;border-bottom:1px solid var(--border)}
-.modal-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:600;color:var(--cream)}
-.modal-close{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:transparent;display:grid;place-items:center;cursor:pointer;color:var(--muted);transition:color .2s,border-color .2s}
-.modal-close:hover{color:var(--cream);border-color:var(--muted)}
-.modal-body{padding:1.3rem 1.6rem}
-.modal-hint{font-size:.95rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.6}
-.modal-hint a{color:var(--gold);cursor:pointer;text-decoration:underline}
-.modal-textarea{width:100%;min-height:260px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:.75rem;line-height:1.6;padding:.9rem 1rem;resize:vertical;outline:none;transition:border-color .2s}
-.modal-textarea:focus{border-color:var(--gold)}
-.modal-error{margin-top:.6rem;color:var(--red);font-size:.86rem;min-height:1.2em}
-.modal-footer{display:flex;gap:.6rem;justify-content:flex-end;flex-wrap:wrap;padding:1rem 1.6rem 1.3rem;border-top:1px solid var(--border)}
-.btn{font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;padding:.55rem 1.1rem;border-radius:7px;cursor:pointer;transition:all .18s;border:1px solid transparent}
-.btn-ghost{background:transparent;border-color:var(--border);color:var(--muted)}
-.btn-ghost:hover{border-color:var(--muted);color:var(--cream)}
-.btn-gold{background:var(--gold);border-color:var(--gold);color:var(--bg)}
-.btn-gold:hover{background:var(--gold2);border-color:var(--gold2)}
-.btn-tpl{background:transparent;border-color:var(--border);color:var(--gold);font-size:.63rem}
-.btn-tpl:hover{border-color:var(--gold);background:var(--gold3)}
-
-/* Template modal */
-.tpl-code{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'JetBrains Mono',monospace;font-size:.7rem;line-height:1.7;color:var(--cream);opacity:.9;white-space:pre;overflow-x:auto;max-height:420px;overflow-y:auto;margin-bottom:.8rem}
-.tpl-note{font-size:.87rem;color:var(--muted);line-height:1.6}
-.tpl-note b{color:var(--gold2)}
-
-/* Toast */
-.toast{position:fixed;bottom:1.8rem;right:1.8rem;background:var(--bg3);border:1px solid var(--green);border-radius:8px;padding:.65rem 1.1rem;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);z-index:2000;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;pointer-events:none;max-width:340px}
-.toast.show{opacity:1;transform:translateY(0)}
-.toast.err{border-color:var(--red);color:var(--red)}
-
-/* Empty */
-.empty-state{padding:3rem 2rem;text-align:center;color:var(--muted);font-style:italic;font-size:1.05rem;border:1px dashed var(--border);border-radius:var(--r);margin-top:1rem}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-
-@media(max-width:900px){
-  .sidebar{display:none}
-  .main{padding:0 1.2rem 6rem}
-  .passage-card{padding:1.4rem 1.2rem}
+/* ── Sidebar ── */
+.sidebar{
+  width:var(--sb-w);
+  background:var(--bg2);
+  border-right:1px solid var(--border);
+  position:fixed;
+  top:0; left:0;
+  height:100vh;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  z-index:100;
+  transform:translateX(0);
+  transition:transform var(--ease), background .3s, border-color .3s;
 }
+.app.sb-off .sidebar{ transform:translateX(-100%); }
+
+/* ── Sidebar tab (the collapse handle) ── */
+.sb-tab{
+  position:fixed;
+  top:50%;
+  transform:translateY(-50%);
+  left:var(--sb-w);
+  width:var(--tab-w);
+  height:52px;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-left:none;
+  border-radius:0 8px 8px 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:200;
+  color:var(--muted);
+  transition:left var(--ease), background .2s, border-color .2s, color .2s;
+}
+.sb-tab:hover{ background:var(--bg3); border-color:var(--gold); color:var(--gold); }
+.sb-tab svg{ transition:transform var(--ease); flex-shrink:0; }
+.app.sb-off .sb-tab{
+  left:0;
+  border-left:1px solid var(--border);
+  border-radius:0 8px 8px 0;
+}
+.app.sb-off .sb-tab svg{ transform:rotate(180deg); }
+
+/* ── Main ── */
+.main{
+  min-width:0;
+  padding:0 3rem 8rem;
+  margin-left:calc(var(--sb-w) + var(--tab-w));
+  max-width:880px;
+  transition:margin-left var(--ease);
+}
+.app.sb-off .main{ margin-left:var(--tab-w); }
+
+/* ── Sidebar head ── */
+.sb-head{
+  padding:1.4rem 1.2rem 1rem;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.5rem;
+  flex-shrink:0;
+}
+.sb-brand{ font-family:'Playfair Display',serif;font-size:1.25rem;font-style:italic;font-weight:600;color:var(--gold2);line-height:1.1;letter-spacing:-.01em }
+.sb-brand .sub{ display:block;font-family:'JetBrains Mono',monospace;font-style:normal;font-weight:400;font-size:.53rem;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-top:.35rem }
+.theme-btn{
+  width:30px;height:30px;border-radius:50%;
+  border:1px solid var(--border);background:transparent;
+  color:var(--muted);display:grid;place-items:center;
+  cursor:pointer;flex-shrink:0;
+  transition:color .2s,border-color .2s,transform .35s;
+}
+.theme-btn:hover{ color:var(--gold2);border-color:var(--gold);transform:rotate(22deg); }
+
+/* ── TOC ── */
+.sb-toc{ flex:1;padding:.8rem 0 1rem;overflow-y:auto; }
+.toc-static{ padding:0 1rem .8rem;border-bottom:1px solid var(--border);margin-bottom:.6rem; }
+.toc-static a{ display:block;font-family:'Crimson Pro',serif;font-size:.9rem;color:var(--muted);text-decoration:none;padding:.3rem 0;transition:color .15s; }
+.toc-static a:hover,.toc-static a.active{ color:var(--gold2); }
+.toc-group{ margin-bottom:.15rem; }
+.toc-batch-label{
+  display:flex;align-items:center;gap:.45rem;
+  padding:.5rem 1rem .25rem;
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;
+  text-transform:uppercase;letter-spacing:.12em;color:var(--gold);
+  user-select:none;
+}
+.toc-bnum{ background:var(--gold3);border:1px solid var(--border2);border-radius:3px;padding:.1rem .32rem;font-size:.56rem; }
+.toc-links{ padding-left:.4rem; }
+.toc-links a{
+  display:block;font-family:'Crimson Pro',serif;font-size:.85rem;
+  color:var(--muted);text-decoration:none;
+  padding:.23rem .7rem .23rem 1.1rem;
+  border-left:2px solid transparent;
+  transition:color .15s,border-color .15s;line-height:1.4;
+}
+.toc-links a:hover,.toc-links a.active{ color:var(--gold2);border-left-color:var(--gold); }
+
+/* ── Sidebar footer ── */
+.sb-footer{ padding:.9rem 1.2rem 1rem;border-top:1px solid var(--border);flex-shrink:0; }
+.credit{ font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--muted2);letter-spacing:.08em;text-align:center; }
+.credit em{ font-family:'Playfair Display',serif;font-style:italic;color:var(--gold2);text-transform:none;letter-spacing:0;font-size:.76rem;font-weight:600; }
+
+/* ── Hero ── */
+.app-header{ padding:2.8rem 0 0; }
+.hero-tag{
+  font-family:'JetBrains Mono',monospace;font-size:.63rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);background:var(--gold3);
+  border:1px solid var(--border2);border-radius:4px;padding:.2rem .6rem;
+  display:inline-block;margin-bottom:1.2rem;
+}
+.app-hero h1{ font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:var(--cream);line-height:1.05;margin-bottom:.55rem;letter-spacing:-.015em; }
+.app-hero h1 em{ font-style:italic;color:var(--gold2); }
+.app-hero-sub{ font-family:'Crimson Pro',serif;font-style:italic;font-size:1.05rem;color:var(--muted);margin-bottom:1.8rem;max-width:560px;line-height:1.5; }
+
+/* ── About ── */
+.about{ background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.6rem 1.8rem;margin-bottom:3rem;transition:background .3s,border-color .3s; }
+.about h2{ font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--cream);margin-bottom:.7rem;display:flex;align-items:center;gap:.55rem; }
+.about h2::before{ content:'§';color:var(--gold);font-style:italic;font-size:1.35rem; }
+.about p{ font-size:.98rem;color:var(--cream);margin-bottom:.85rem;line-height:1.7;opacity:.92; }
+.about p:last-child{ margin-bottom:0; }
+.tier-row{ display:flex;flex-wrap:wrap;gap:1rem;margin-top:.5rem; }
+.tier{ flex:1;min-width:160px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.65rem .9rem; }
+.tier .lbl{ font-family:'JetBrains Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:.2rem; }
+.tier .desc{ font-size:.86rem;color:var(--muted);line-height:1.5; }
+
+.app-divider{ border:none;border-top:1px solid var(--border);margin:0 0 3rem; }
+
+/* ── Batch ── */
+.batch-section{ margin-bottom:5rem;animation:fadeUp .5s ease both; }
+.batch-banner{
+  background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);
+  border:1px solid var(--border);border-radius:var(--r);
+  padding:1.4rem 1.8rem;margin-bottom:2.5rem;
+  position:relative;overflow:hidden;
+  transition:background .3s,border-color .3s;
+}
+.batch-banner::before{ content:'';position:absolute;top:0;right:0;width:120px;height:100%;background:linear-gradient(90deg,transparent,var(--gold3));pointer-events:none; }
+.batch-inner{ position:relative;z-index:1; }
+.b-num-tag{ font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);background:var(--gold3);border:1px solid var(--border2);border-radius:3px;padding:.16rem .5rem;display:inline-block;margin-bottom:.6rem; }
+.b-title{ font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--cream);line-height:1.25;margin-bottom:.2rem; }
+.b-sub{ font-style:italic;color:var(--muted);font-size:.93rem; }
+.b-meta{ display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.85rem; }
+.m-tag{ font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:.16rem .48rem;display:flex;align-items:center;gap:.28rem; }
+.m-tag .dot{ width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:.7;flex-shrink:0; }
+.m-tag.freq{ color:var(--gold2);border-color:var(--border2);background:var(--gold3); }
+
+/* ── Subsection ── */
+.subsec{ margin-bottom:2.5rem; }
+.subsec-header{ display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem;padding-bottom:.55rem;border-bottom:1px solid var(--border); }
+.s-tag{ font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.13em;color:var(--gold);opacity:.8;white-space:nowrap; }
+.subsec-header h3{ font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:600;color:var(--cream); }
+
+/* ── Passage ── */
+.passage-card{ background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:2.2rem 2.5rem;box-shadow:var(--shadow);transition:background .3s,border-color .3s; }
+.p-title{ font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--gold2);margin-bottom:.3rem;line-height:1.3; }
+.p-rule{ border:none;border-top:1px solid var(--border);margin:.85rem 0 1.3rem; }
+.passage-card p{ margin-bottom:1.2rem;font-size:1.06rem;color:var(--cream);text-align:justify;line-height:1.85;opacity:.93; }
+.passage-card p:last-child{ margin-bottom:0; }
+.p-break{ text-align:center;color:var(--gold);opacity:.4;margin:1.4rem 0;font-size:1rem;letter-spacing:.55em; }
+.vhl{
+  color:var(--gold2);font-weight:600;
+  border-bottom:1.5px dotted var(--gold);
+  cursor:pointer;border-radius:2px;padding:0 1px;
+  transition:color .15s,background .15s;
+}
+.vhl:hover{ color:var(--cream);background:rgba(201,168,76,.25);border-bottom-color:transparent; }
+
+/* ── Word cards ── */
+.word-card{ border:1px solid var(--border);border-radius:var(--r);margin-bottom:.65rem;overflow:hidden;transition:border-color .2s; }
+.word-card:hover{ border-color:var(--border2); }
+.word-card.flash-card{ border-color:var(--gold);animation:flashBorder .9s ease; }
+@keyframes flashBorder{ 0%,100%{border-color:var(--gold)}50%{border-color:var(--gold2);box-shadow:0 0 0 3px var(--gold3)} }
+.wc-head{ display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;background:var(--bg2);transition:background .15s;gap:.8rem;user-select:none; }
+.wc-head:hover,.wc-head.open{ background:var(--bg3); }
+.wc-row{ display:flex;align-items:baseline;gap:.65rem;flex-wrap:wrap;min-width:0; }
+.wc-name{ font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--gold2); }
+.wc-pos{ font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--muted);border:1px solid var(--border);border-radius:3px;padding:.07rem .32rem;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0; }
+.wc-quick{ font-style:italic;font-size:.87rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:320px; }
+.wc-toggle{ width:22px;height:22px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;flex-shrink:0;transition:transform .3s,background .2s;color:var(--muted); }
+.wc-head.open .wc-toggle{ transform:rotate(180deg);background:var(--gold3);color:var(--gold); }
+.wc-body{ display:none;padding:1rem 1.2rem 1.2rem;border-top:1px solid var(--border);background:var(--bg); }
+.wc-body.open{ display:block; }
+.wc-meaning{ font-size:1rem;color:var(--cream);margin-bottom:.8rem;line-height:1.7; }
+.wc-eg{ background:var(--bg2);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;padding:.6rem .95rem;font-style:italic;font-size:.93rem;color:var(--cream);opacity:.85;margin-bottom:.8rem; }
+.syn-row{ display:flex;flex-wrap:wrap;gap:.4rem;align-items:center; }
+.pl{ font-family:'JetBrains Mono',monospace;font-size:.56rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted2);margin-right:.05rem; }
+.pill{ font-family:'JetBrains Mono',monospace;font-size:.64rem;padding:.13rem .42rem;border-radius:3px;letter-spacing:.03em;border:1px solid; }
+.pill.syn{ background:rgba(91,143,201,.12);color:var(--blue);border-color:rgba(91,143,201,.22); }
+.pill.ant{ background:rgba(192,80,74,.09);color:var(--red);border-color:rgba(192,80,74,.2); }
+
+/* ── Exam ── */
+.exam-part{ margin-bottom:2rem; }
+.ep-label{ font-family:'JetBrains Mono',monospace;font-size:.63rem;text-transform:uppercase;letter-spacing:.13em;color:var(--gold);margin-bottom:.9rem;padding-bottom:.4rem;border-bottom:1px dashed var(--border); }
+.q-card{ background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.3rem;margin-bottom:.85rem;transition:border-color .2s; }
+.q-card:hover{ border-color:var(--border2); }
+.q-num{ font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--gold);letter-spacing:.08em;margin-bottom:.4rem; }
+.q-text{ font-size:.98rem;color:var(--cream);margin-bottom:.8rem;line-height:1.65; }
+.q-text em{ font-style:italic;color:var(--gold2); }
+.opts{ display:flex;flex-direction:column;gap:.35rem; }
+.opt{
+  display:flex;align-items:center;gap:.6rem;
+  padding:.5rem .8rem;border:1px solid var(--border);border-radius:7px;
+  cursor:pointer;transition:all .15s;background:var(--bg);
+  font-size:.92rem;color:var(--cream);user-select:none;opacity:.87;
+}
+.opt:hover{ border-color:var(--gold);background:var(--bg3);opacity:1; }
+.opt.correct{ border-color:var(--green);background:rgba(90,158,111,.1);color:var(--green);pointer-events:none;opacity:1; }
+.opt.wrong{ border-color:var(--red);background:rgba(192,80,74,.08);color:var(--red);pointer-events:none;opacity:1; }
+.opt.disabled{ pointer-events:none;opacity:.45; }
+.opt-l{ font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);width:18px;flex-shrink:0; }
+.opt.correct .opt-l{ color:var(--green); }
+.opt.wrong .opt-l{ color:var(--red); }
+.a-reveal{ display:none;margin-top:.75rem;padding:.7rem .95rem;background:var(--gold3);border:1px solid var(--border2);border-radius:7px;font-size:.9rem;color:var(--cream);opacity:.92;line-height:1.65; }
+.a-reveal.show{ display:block; }
+.a-reveal strong{ color:var(--gold2); }
+
+/* ── Toast ── */
+.toast{ position:fixed;bottom:1.6rem;right:1.6rem;background:var(--bg3);border:1px solid var(--green);border-radius:8px;padding:.6rem 1rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--green);z-index:2000;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;pointer-events:none;max-width:320px; }
+.toast.show{ opacity:1;transform:translateY(0); }
+
+/* ── Animations ── */
+@keyframes fadeUp{ from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)} }
+
+/* ── Hamburger button (mobile only) ── */
+.mob-btn{
+  display:none;
+  position:fixed;
+  top:.85rem; left:.85rem;
+  z-index:400;
+  width:38px; height:38px;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4.5px;
+  cursor:pointer;
+  transition:background .2s, border-color .2s;
+  flex-shrink:0;
+}
+.mob-btn:hover{ background:var(--bg3); border-color:var(--gold); }
+.mob-btn .bar{
+  display:block;
+  width:16px; height:1.6px;
+  background:var(--muted);
+  border-radius:2px;
+  transition:transform .28s ease, opacity .2s ease, background .2s;
+}
+.mob-btn:hover .bar{ background:var(--gold); }
+.app.sb-mobile-open .mob-btn .bar-1{ transform:translateY(6.1px) rotate(45deg); }
+.app.sb-mobile-open .mob-btn .bar-2{ opacity:0; transform:scaleX(0); }
+.app.sb-mobile-open .mob-btn .bar-3{ transform:translateY(-6.1px) rotate(-45deg); }
+
+/* ── Backdrop (mobile only) ── */
+.sb-backdrop{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.62);
+  backdrop-filter:blur(3px);
+  z-index:250;
+  opacity:0;
+  transition:opacity .3s ease;
+}
+.app.sb-mobile-open .sb-backdrop{
+  display:block;
+  opacity:1;
+}
+
+/* ── Desktop responsive ── */
+@media(max-width:900px){
+  /* Sidebar becomes a drawer */
+  .sidebar{
+    transform:translateX(-100%);
+    z-index:300;
+    box-shadow:none;
+  }
+  .app.sb-mobile-open .sidebar{
+    transform:translateX(0);
+    box-shadow:8px 0 40px rgba(0,0,0,.5);
+  }
+  /* Hide the desktop tab, show hamburger */
+  .sb-tab{ display:none; }
+  .mob-btn{ display:flex; }
+  /* Main takes full width; top padding for hamburger */
+  .main{
+    margin-left:0;
+    padding:0 1.2rem 6rem;
+  }
+  .app-header{ padding-top:4.2rem; }
+  .passage-card{ padding:1.4rem 1.2rem; }
+  /* Desktop sb-off state has no effect on mobile */
+  .app.sb-off .sidebar{ transform:translateX(-100%); }
+  .app.sb-off .main{ margin-left:0; }
+}
+
 @media(max-width:600px){
-  .app-hero h1{font-size:1.7rem}
-  .batch-title{font-size:1.2rem}
+  .app-hero h1{ font-size:1.65rem; }
+  .b-title{ font-size:1.15rem; }
+  .tier-row{ flex-direction:column; }
 }
 
 @media print{
-  .sidebar,.modal-overlay,.batch-actions,.del-batch-btn{display:none!important}
-  .wc-body{display:block!important}
-  .app{display:block}
-  .main{padding:1rem}
+  .sidebar,.sb-tab,.mob-btn,.sb-backdrop{ display:none!important; }
+  .wc-body{ display:block!important; }
+  .main{ margin-left:0;padding:1rem; }
 }
 </style>
 </head>
 <body>
 
-<div class="app">
+<div class="app" id="app">
+
+<!-- ── Mobile backdrop ── -->
+<div class="sb-backdrop" id="sb-backdrop" onclick="closeMobileSidebar()"></div>
+
+<!-- ── Mobile hamburger ── -->
+<button class="mob-btn" onclick="toggleSidebar()" aria-label="Toggle navigation" title="Menu">
+  <span class="bar bar-1"></span>
+  <span class="bar bar-2"></span>
+  <span class="bar bar-3"></span>
+</button>
+
+<!-- ── Desktop sidebar collapse tab ── -->
+<div class="sb-tab" onclick="toggleSidebar()" title="Toggle sidebar">
+  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+    <path d="M7 1L3 5L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
 
 <!-- ── Sidebar ── -->
 <aside class="sidebar">
@@ -229,8 +376,8 @@ body{background:var(--bg);color:var(--cream);font-family:'Crimson Pro',Georgia,s
       Marginalia
       <span class="sub">Vocabulary Companion</span>
     </div>
-    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme" id="theme-btn">
-      <svg id="theme-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">
+      <svg id="theme-icon" width="13" height="13" viewBox="0 0 14 14" fill="none">
         <path d="M11.5 8.3A4.5 4.5 0 0 1 5.7 2.5a5 5 0 1 0 5.8 5.8z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
@@ -243,32 +390,13 @@ body{background:var(--bg);color:var(--cream);font-family:'Crimson Pro',Georgia,s
     <div id="toc"></div>
   </div>
   <div class="sb-footer">
-    <div class="actions">
-      <button class="btn-primary" onclick="openAddModal()">
-        <svg width="12" height="12" viewBox="0 0 13 13" fill="none"><path d="M6.5 2v9M2 6.5h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        Add New Batch
-      </button>
-      <div class="btn-icon-row">
-        <button class="btn-icon" onclick="importFromFile()" title="Load batches from a JSON backup">
-          <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M7 2v8M3.5 6.5L7 10l3.5-3.5M2 12.5h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Import
-        </button>
-        <button class="btn-icon" onclick="exportBackup()" title="Download a JSON backup of all batches">
-          <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M7 10V2M3.5 5.5L7 2l3.5 3.5M2 12.5h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Backup
-        </button>
-      </div>
-      <button class="btn-wide" onclick="exportStandaloneHTML()" title="Download a new HTML file with all your batches baked in — shareable and self-contained">
-        <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 9.5v2a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-2M7 1.5v8M4 6.5L7 9.5l3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Download Standalone
-      </button>
-    </div>
     <div class="credit">Made by <em>Kushal</em></div>
   </div>
 </aside>
 
 <!-- ── Main ── -->
 <main class="main">
+
   <div class="app-header" id="hero">
     <div class="app-hero">
       <div class="hero-tag">A Reading-First Vocabulary Companion</div>
@@ -279,90 +407,34 @@ body{background:var(--bg);color:var(--cream);font-family:'Crimson Pro',Georgia,s
 
   <section class="about" id="about">
     <h2>About</h2>
-    <p>Each batch in <em>Marginalia</em> pairs a hand-crafted editorial passage with vocabulary cards and exam-style practice questions. Every word inside a passage is clickable — tap it to see the meaning, an example sentence, synonyms, and antonyms.</p>
-    <p>Generate new batches with your <code>master prompt</code>, paste the JSON into <b>Add New Batch</b>, and the batch appears instantly with all features wired up.</p>
-
-    <div class="row">
-      <div class="about-tier">
+    <p>Each batch pairs a hand-crafted editorial passage with vocabulary cards and exam-style practice questions. Every vocabulary word inside a passage is highlighted — click it to jump straight to its definition card, example sentence, synonyms, and antonyms.</p>
+    <p>The questions are interactive: click an answer to reveal whether it is correct and why. Nothing is submitted or recorded anywhere.</p>
+    <div class="tier-row">
+      <div class="tier">
         <div class="lbl">High Frequency</div>
         <div class="desc">Words that appear constantly in exam reading sections. Master these first.</div>
       </div>
-      <div class="about-tier">
+      <div class="tier">
         <div class="lbl">Medium Frequency</div>
         <div class="desc">Important but less common. Expands your active range and recognition.</div>
       </div>
-      <div class="about-tier">
+      <div class="tier">
         <div class="lbl">Low Frequency</div>
         <div class="desc">Rare and specialised. Sharpens precision for top-tier verbal sections.</div>
       </div>
     </div>
-
-    <p style="margin-top:1.2rem;font-size:.9rem;color:var(--muted)">
-      <b style="color:var(--gold2)">Backup</b> downloads a JSON of all your batches · <b style="color:var(--gold2)">Import</b> loads them back on another machine · <b style="color:var(--gold2)">Download Standalone</b> bakes everything into a fresh HTML file you can share or upload anywhere.
-    </p>
   </section>
 
   <hr class="app-divider"/>
-
   <div id="batches-container"></div>
+
 </main>
-
 </div>
 
-<!-- Hidden file input for import -->
-<input type="file" id="file-import" accept=".json,application/json" style="display:none"/>
-
-<!-- ── Add Batch Modal ── -->
-<div class="modal-overlay" id="add-modal">
-  <div class="modal">
-    <div class="modal-head">
-      <span class="modal-title">Add New Vocabulary Batch</span>
-      <button class="modal-close" onclick="closeAddModal()">
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 2l9 9M11 2l-9 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p class="modal-hint">
-        Paste the JSON for your new batch. Generate it with your <em>Marginalia</em> master prompt and request the JSON output at the end.<br>
-        <a onclick="openTemplateModal()">View JSON template ↗</a>
-      </p>
-      <textarea class="modal-textarea" id="batch-json-input" placeholder='{ "id": "batch_N", "title": "...", "words": [...], ... }'></textarea>
-      <div class="modal-error" id="modal-error"></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-tpl" onclick="openTemplateModal()">View Template</button>
-      <button class="btn btn-ghost" onclick="closeAddModal()">Cancel</button>
-      <button class="btn btn-gold" onclick="importBatch()">Import Batch</button>
-    </div>
-  </div>
-</div>
-
-<!-- ── Template Modal ── -->
-<div class="modal-overlay" id="tpl-modal">
-  <div class="modal">
-    <div class="modal-head">
-      <span class="modal-title">JSON Batch Template</span>
-      <button class="modal-close" onclick="closeTplModal()">
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 2l9 9M11 2l-9 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p class="tpl-note" style="margin-bottom:1rem">
-        Copy this template into your <em>Marginalia</em> master prompt. Words in the passage are marked with <b>[[word]]</b> for base forms, or <b>[[key|displayed form]]</b> for inflections (e.g. <b>[[exacerbate|exacerbated]]</b>). Use <b>__break__</b> as its own paragraph for section dividers.
-      </p>
-      <div class="tpl-code" id="tpl-code-block"></div>
-      <button class="btn btn-gold" onclick="copyTemplate()" style="width:100%">Copy Template to Clipboard</button>
-    </div>
-  </div>
-</div>
-
-<!-- ── Toast ── -->
+<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-//  SEED DATA — Embedded batches (replaced on standalone export)
-// ═══════════════════════════════════════════════════════
 /* __SEED_START__ */
 const SEED = [
 {
@@ -412,14 +484,13 @@ const SEED = [
       "This tendency is further [[exacerbate|exacerbated]] by an examination culture that rewards recall over reasoning. When the purpose of education narrows to passing tests, everything else — philosophical curiosity, [[aesthetic|aesthetic]] sensibility, the pleasure of an [[erudite]] conversation — becomes a luxury, something one indulges in only after the serious business of scoring well has been attended to. The [[esoteric]] pleasures of reading widely, thinking slowly, and entertaining ideas without immediate utility are treated as the hobbies of the impractical.",
       "Yet it is precisely this kind of open-ended intellectual engagement that has historically produced the most consequential thinkers. Darwin read geology to understand biology. Einstein was a passionate violinist. The leaders of every major intellectual revolution drew on [[eclectic|eclectic]] reservoirs of knowledge that had no obvious professional application. The idea that depth and breadth are luxuries — or worse, distractions — is one of the more [[banal]] misconceptions that educational policy continues to enshrine.",
       "__break__",
-      "Attempts to [[ameliorate]] this situation have been well-intentioned but structurally timid. Curriculum reform committees convene, reports are commissioned, and recommendations are delivered with great solemnity — only to be quietly shelved when the political will to implement them proves insufficient. It is not entirely [[futile]] to hope for improvement, but it would be naïve to expect transformation from institutions whose incentive structures remain unchanged. Real intellectual culture cannot be installed by decree; it must be cultivated slowly and imperfectly, through example, through access, and through the quiet insistence that ideas matter for their own sake.",
+      "Attempts to [[ameliorate]] this situation have been well-intentioned but structurally timid. Curriculum reform committees convene, reports are commissioned, and recommendations are delivered with great solemnity — only to be quietly shelved when the political will to implement them proves insufficient. It is not entirely [[futile]] to hope for improvement, but it would be naïve to expect transformation from institutions whose incentive structures remain unchanged.",
       "The role of individual teachers in this process is difficult to [[delineate|delineate]] precisely, but it is enormous. A single [[erudite|erudite]] mentor — one who reads widely, argues honestly, and treats every question as worthy of serious attention — can do more to [[ameliorate|ameliorate]] intellectual stagnation than any number of revised syllabi. Conversely, a classroom dominated by a [[garrulous]] instructor more interested in performing expertise than transmitting it will inevitably [[enervate]] even the most enthusiastic students, draining their curiosity through sheer tedium.",
-      "Students, for their part, are not passive in this dynamic. Those who flourish intellectually are almost always somehow [[impervious]] to the levelling pressure of mediocre environments — who read despite the curriculum, debate despite the culture of deference, and treat every piece of knowledge as potentially connected to every other. Their quiet productivity can [[belie|belie]] the fierce internal effort that sustains it. Intellectual seriousness seldom announces itself.",
+      "Students, for their part, are not passive in this dynamic. Those who flourish intellectually are almost always somehow [[impervious]] to the levelling pressure of mediocre environments — who read despite the curriculum, debate despite the culture of deference, and treat every piece of knowledge as potentially connected to every other. Their quiet productivity can [[belie|belie]] the fierce internal effort that sustains it.",
       "__break__",
-      "The danger in all of this extends well beyond the classroom. An education system that systematically [[enervate|enervates]] curiosity, that sidelines the genuinely original in favour of the [[banal|banal]], and that treats the life of the mind as subordinate to the demands of the labour market — such a system does not merely fail its students. It helps [[foment]] a culture of intellectual dependency in which citizens are better equipped to receive instructions than to question them. In a democracy, that is not a minor pedagogical failure; it is a civic one.",
+      "The danger in all of this extends well beyond the classroom. An education system that systematically [[enervate|enervates]] curiosity, that sidelines the genuinely original in favour of the [[banal|banal]], and that treats the life of the mind as subordinate to the demands of the labour market — such a system does not merely fail its students. It helps [[foment]] a culture of intellectual dependency in which citizens are better equipped to receive instructions than to question them.",
       "It would be [[facetious]] to suggest the solution is simply to make education harder, or to resurrect some idealised past of gruelling classical training. The [[austere|austere]] model of learning — rote memorisation, punishing examinations, [[ascetic|ascetic]] devotion to abstraction — has its own failures, not least its tendency to produce technically proficient graduates with little understanding of their own societies.",
-      "What is needed is something more demanding and more honest: an [[aesthetic|aesthetic]] of intellectual life that values both rigour and openness, both discipline and curiosity. Not the [[ephemeral]] enthusiasm of a motivational seminar, but the durable, [[immutable]] conviction that thinking clearly and feeling deeply are not contradictions. They are, in fact, the twin foundations of any education worthy of the name.",
-      "The examined classroom, like the examined life, cannot be benchmarked or ranked. It demands honesty about what education is actually for — and the courage to pursue that purpose even when it is slow, even when it is uncomfortable, and even when it is, by every conventional measure, entirely [[arduous|arduous]]."
+      "What is needed is something more demanding and more honest: an [[aesthetic|aesthetic]] of intellectual life that values both rigour and openness, both discipline and curiosity. Not the [[ephemeral]] enthusiasm of a motivational seminar, but the durable, [[immutable]] conviction that thinking clearly and feeling deeply are not contradictions. They are, in fact, the twin foundations of any education worthy of the name — and the courage to pursue that purpose, even when it is, by every conventional measure, entirely [[arduous|arduous]]."
     ]
   },
   "questions":{
@@ -427,34 +498,34 @@ const SEED = [
       {"q":"In the passage, 'copious notes' is used to suggest that students:","opts":["Are genuinely engaged with the material","Perform diligence without necessarily understanding","Excel in all forms of academic assessment","Prefer written work to oral discussion"],"ans":1,"exp":"The irony is explicit: copious note-taking appears alongside the absence of real curiosity — quantity without depth."},
       {"q":"The word 'endemic' as used in the passage most closely means:","opts":["Temporary and easily reversible","Rare and specific to individuals","Deeply rooted and widespread within a system","Imported from foreign educational models"],"ans":2,"exp":"Endemic describes intellectual passivity as structurally entrenched — a condition so normalised it defines the system."},
       {"q":"'The polished exterior can belie its intellectual emptiness.' The word 'belie' here means:","opts":["Confirm","Expose to public view","Create a false impression of the opposite","Amplify or intensify"],"ans":2,"exp":"Belie means to contradict or disguise. The impressive exterior contradicts — and conceals — the actual hollowness inside."},
-      {"q":"Which of the following is closest in meaning to 'enervate' as used in the passage?","opts":["Inspire with renewed purpose","Challenge through intellectual rigour","Weaken by draining energy and curiosity","Engage through collaborative storytelling"],"ans":2,"exp":"Enervate means to drain or weaken. A garrulous instructor enervates students by making curiosity feel pointless through sheer tedium."},
+      {"q":"Which is closest in meaning to 'enervate' as used in the passage?","opts":["Inspire with renewed purpose","Challenge through intellectual rigour","Weaken by draining energy and curiosity","Engage through collaborative storytelling"],"ans":2,"exp":"Enervate means to drain or weaken. A garrulous instructor enervates students by making curiosity feel pointless through sheer tedium."},
       {"q":"The author describes certain students as 'impervious to the levelling pressure of mediocre environments.' This implies these students:","opts":["Are unaware of their education's poor quality","Actively resist the pull toward intellectual conformity","Rely on private tutoring outside class","Are indifferent to academic outcomes entirely"],"ans":1,"exp":"Impervious means unaffected. These students flourish despite mediocrity — they resist the normalising pressure of low-expectation environments."},
-      {"q":"The word 'facetious' is used in the passage to:","opts":["Ridicule critics of the education system","Dismiss an oversimplified solution before it is even proposed","Express the author's frustration with students","Describe the tone of curriculum reform committees"],"ans":1,"exp":"The author preempts a shallow counter-argument by calling it facetious — flippant and unserious — before anyone can raise it. This is a rhetorical move that shows self-awareness."},
-      {"q":"'It helps foment a culture of intellectual dependency.' The word 'foment' here carries which implication?","opts":["The dependency is accidental and unintentional","The system passively permits dependency","The system actively stirs and cultivates dependency","The dependency is temporary and easily reversed"],"ans":2,"exp":"Foment means to actively stir up or encourage. The author implies the system doesn't merely allow dependency — it generates it, making it a civic, not just academic, problem."},
-      {"q":"When the author states that reform attempts are 'structurally timid,' what is implied?","opts":["Reformers lack intelligence or knowledge","The real problem — incentive structures — is never touched","Reform committees meet too infrequently","Students are resistant to curricular changes"],"ans":1,"exp":"'Structurally timid' means the reforms address surface elements while leaving the underlying institutional incentives unchanged — which is why they repeatedly fail."}
+      {"q":"The word 'facetious' is used in the passage to:","opts":["Ridicule critics of the education system","Dismiss an oversimplified solution before it is even proposed","Express the author's frustration with students","Describe the tone of curriculum reform committees"],"ans":1,"exp":"The author preempts a shallow counter-argument by calling it facetious — flippant and unserious — before anyone can raise it."},
+      {"q":"'It helps foment a culture of intellectual dependency.' The word 'foment' here implies:","opts":["The dependency is accidental and unintentional","The system passively permits dependency","The system actively stirs and cultivates dependency","The dependency is temporary and easily reversed"],"ans":2,"exp":"Foment means to actively stir up or encourage. The system doesn't merely allow dependency — it generates it."},
+      {"q":"When the author states that reform attempts are 'structurally timid,' what is implied?","opts":["Reformers lack intelligence or knowledge","The real problem — incentive structures — is never touched","Reform committees meet too infrequently","Students are resistant to curricular changes"],"ans":1,"exp":"'Structurally timid' means the reforms address surface elements while leaving the underlying institutional incentives unchanged."}
     ],
     "syn":[
       {"q":"Choose the best SYNONYM for 'arduous':","opts":["Effortless","Gruelling","Fleeting","Verbose"],"ans":1,"exp":"Arduous means requiring great effort. 'Gruelling' is the closest — both describe something demanding that taxes endurance."},
-      {"q":"Which word is most OPPOSITE in meaning to 'ephemeral'?","opts":["Contentious","Esoteric","Immutable","Eclectic"],"ans":2,"exp":"Ephemeral = fleeting and short-lived. Its antonym is immutable = permanent and unchanging. This contrast appears directly in the passage's closing argument."},
-      {"q":"Choose the word most SIMILAR in meaning to 'ameliorate':","opts":["Exacerbate","Foment","Alleviate","Delineate"],"ans":2,"exp":"Ameliorate means to make better. 'Alleviate' is its closest synonym — both mean to ease or relieve a difficult situation."},
-      {"q":"Which word is the best ANTONYM for 'garrulous'?","opts":["Verbose","Taciturn","Copious","Erudite"],"ans":1,"exp":"Garrulous = excessively talkative. Its antonym is taciturn = reserved, saying little. A taciturn person communicates only what is necessary."},
-      {"q":"Choose the best SYNONYM for 'esoteric':","opts":["Accessible","Obscure","Banal","Contentious"],"ans":1,"exp":"Esoteric = understood by only a specialist few. 'Obscure' is the closest synonym — both describe something not widely known or understood."}
+      {"q":"Which word is most OPPOSITE in meaning to 'ephemeral'?","opts":["Contentious","Esoteric","Immutable","Eclectic"],"ans":2,"exp":"Ephemeral = fleeting and short-lived. Its antonym is immutable = permanent and unchanging."},
+      {"q":"Choose the word most SIMILAR in meaning to 'ameliorate':","opts":["Exacerbate","Foment","Alleviate","Delineate"],"ans":2,"exp":"Ameliorate means to make better. 'Alleviate' is its closest synonym — both mean to ease or relieve."},
+      {"q":"Which word is the best ANTONYM for 'garrulous'?","opts":["Verbose","Taciturn","Copious","Erudite"],"ans":1,"exp":"Garrulous = excessively talkative. Its antonym is taciturn = reserved, saying little."},
+      {"q":"Choose the best SYNONYM for 'esoteric':","opts":["Accessible","Obscure","Banal","Contentious"],"ans":1,"exp":"Esoteric = understood by only a specialist few. 'Obscure' is the closest synonym."}
     ],
     "inf":[
-      {"q":"The author's reference to Darwin reading geology and Einstein playing violin is primarily intended to:","opts":["Argue that scientists should have artistic hobbies","Demonstrate that eclectic knowledge has historically driven intellectual breakthroughs","Suggest that music education should be made mandatory","Compare historical and modern curricula directly"],"ans":1,"exp":"The examples show that knowledge outside one's direct field is not a distraction but an intellectual resource — directly countering the 'depth and breadth are luxuries' misconception."},
-      {"q":"When the author calls the idea that 'depth and breadth are luxuries' a 'banal misconception,' the tone is best described as:","opts":["Sympathetic toward policymakers","Openly dismissive of students","Critically impatient with a tired, self-defeating assumption","Neutral and objective in its presentation"],"ans":2,"exp":"'Banal misconception' signals controlled frustration. The author is not neutral — calling it 'banal' means it is so obviously wrong that it has become dull through repetition."},
-      {"q":"The final paragraph implies that genuine education:","opts":["Can be assessed through better-designed standardised rankings","Is best achieved through strict, ascetic classical methods","Requires a durable personal conviction that cannot be measured externally","Depends primarily on government investment in infrastructure"],"ans":2,"exp":"The passage closes on 'immutable conviction' — a belief that cannot be benchmarked or ranked. Education, the author implies, is internal and durable, not institutional and measurable."},
-      {"q":"The author's attitude toward curriculum reform committees is best described as:","opts":["Admiring of their diligence and good intentions","Skeptical — acknowledging good intentions but doubting structural impact","Hostile and dismissive of reform efforts entirely","Supportive, with specific policy recommendations"],"ans":1,"exp":"The author says efforts are 'well-intentioned but structurally timid' — not futile to hope for improvement, but naïve to expect transformation. This is calibrated skepticism, not hostility."},
-      {"q":"By describing the scholarly tradition as built on an 'ascetic ideal,' the author most likely implies:","opts":["That historical education systems were cruel and should not be revisited","That intellectual achievement has always demanded a degree of personal sacrifice and discomfort","That monks and religious scholars were the only genuine intellectuals","That self-denial is sufficient on its own to produce learning"],"ans":1,"exp":"Ascetic ideal means the tradition accepted difficulty as inherent to learning — not as a punishment but as a natural condition of serious inquiry."}
+      {"q":"The author's reference to Darwin and Einstein is primarily intended to:","opts":["Argue that scientists should have artistic hobbies","Demonstrate that eclectic knowledge drives intellectual breakthroughs","Suggest that music education should be mandatory","Compare historical and modern curricula"],"ans":1,"exp":"The examples show that knowledge outside one's field is an intellectual resource, not a distraction — countering the 'depth and breadth are luxuries' misconception."},
+      {"q":"When the author calls the idea that 'depth and breadth are luxuries' a 'banal misconception,' the tone is:","opts":["Sympathetic toward policymakers","Openly dismissive of students","Critically impatient with a tired, self-defeating assumption","Neutral and objective"],"ans":2,"exp":"'Banal misconception' signals controlled frustration — calling it 'banal' means it has become dull through repetition, not that it is minor."},
+      {"q":"The final paragraph implies that genuine education:","opts":["Can be assessed through better-designed rankings","Is best achieved through strict classical methods","Requires a durable personal conviction that cannot be measured externally","Depends primarily on government investment"],"ans":2,"exp":"The passage closes on 'immutable conviction' — a belief that cannot be benchmarked. Education is internal and durable, not institutional and measurable."},
+      {"q":"The author's attitude toward curriculum reform committees is best described as:","opts":["Admiring of their diligence","Skeptical — acknowledging intentions but doubting structural impact","Hostile and dismissive","Supportive, with specific recommendations"],"ans":1,"exp":"'Well-intentioned but structurally timid' is calibrated skepticism, not hostility — the author holds open the possibility of improvement."},
+      {"q":"By describing scholarship as built on an 'ascetic ideal,' the author implies:","opts":["Historical education was cruel and should not be revisited","Intellectual achievement has always demanded personal sacrifice","Monks were the only genuine intellectuals","Self-denial alone is sufficient to produce learning"],"ans":1,"exp":"Ascetic ideal means the tradition accepted difficulty as inherent to learning — not as punishment but as a natural condition of serious inquiry."}
     ],
     "sent":[
-      {"q":"Despite producing _______ research papers each semester, the department's output remained intellectually _______ — technically correct but entirely without original argument.","opts":["esoteric … arduous","copious … banal","eclectic … austere","futile … contentious"],"ans":1,"exp":"'Copious' captures the quantity; 'banal' captures the unoriginality. The contrast mirrors the passage's central argument about surface diligence vs genuine intellectual depth."},
-      {"q":"The new director's efforts to _______ the organisation's culture of passivity proved largely _______, since the structural incentives that had produced it remained untouched.","opts":["foment … erudite","delineate … ephemeral","ameliorate … futile","emulate … garrulous"],"ans":2,"exp":"'Ameliorate' (improve) + 'futile' (pointless) creates the tension: good intentions undermined by unchanged incentive structures — the exact failure the passage describes."},
-      {"q":"Her _______ reading habits — spanning philosophy, architecture, biochemistry, and maritime law — made her _______ to the narrow technical criticism that undid her colleagues.","opts":["banal … impervious","eclectic … impervious","arduous … endemic","copious … facetious"],"ans":1,"exp":"'Eclectic' describes her wide-ranging reading; 'impervious' describes the resilience that breadth of knowledge produces."}
+      {"q":"Despite producing _______ research papers each semester, the department's output remained intellectually _______ — technically correct but entirely without original argument.","opts":["esoteric … arduous","copious … banal","eclectic … austere","futile … contentious"],"ans":1,"exp":"'Copious' captures the quantity; 'banal' captures the unoriginality. The contrast mirrors the passage's central argument."},
+      {"q":"The new director's efforts to _______ the organisation's culture of passivity proved largely _______, since the structural incentives that had produced it remained untouched.","opts":["foment … erudite","delineate … ephemeral","ameliorate … futile","emulate … garrulous"],"ans":2,"exp":"'Ameliorate' (improve) + 'futile' (pointless) captures good intentions undone by unchanged incentive structures."},
+      {"q":"Her _______ reading habits — spanning philosophy, architecture, biochemistry, and maritime law — made her _______ to the narrow technical criticism that undid her colleagues.","opts":["banal … impervious","eclectic … impervious","arduous … endemic","copious … facetious"],"ans":1,"exp":"'Eclectic' describes wide-ranging reading; 'impervious' describes the resilience that breadth of knowledge produces."}
     ],
     "tone":[
-      {"q":"The overall tone of this passage is best described as:","opts":["Nostalgic and mournful about the loss of classical education","Passionately polemical, urging immediate political action","Critically analytical with philosophical depth and controlled urgency","Detached and purely descriptive, presenting perspectives without judgment"],"ans":2,"exp":"The author presents a clear position through reasoned argument, not outrage. The philosophical register at the end ('immutable conviction') elevates the piece above polemic."},
-      {"q":"In the final three paragraphs, the author's tone shifts from earlier sections by becoming:","opts":["More hostile and accusatory toward institutions","More personal and philosophical, moving from critique to conviction","More uncertain and hedged in its arguments","More focused on specific policy solutions"],"ans":1,"exp":"The earlier sections are analytical and critical. The final paragraphs move inward — from structural critique to a philosophical statement about what education fundamentally is."}
+      {"q":"The overall tone of this passage is best described as:","opts":["Nostalgic and mournful","Passionately polemical, urging immediate action","Critically analytical with philosophical depth and controlled urgency","Detached and purely descriptive"],"ans":2,"exp":"The author takes a clear position through reasoned argument. The philosophical register at the end elevates the piece above polemic without retreating to neutrality."},
+      {"q":"In the final paragraphs, the author's tone shifts by becoming:","opts":["More hostile and accusatory","More personal and philosophical, moving from critique to conviction","More uncertain and hedged","More focused on specific policy solutions"],"ans":1,"exp":"The earlier sections analyse systems; the final paragraphs move inward — from structural critique to a philosophical statement about what education fundamentally is."}
     ]
   }
 },
@@ -467,11 +538,11 @@ const SEED = [
   "wordCount":25,
   "words":[
     {"word":"insipid","pos":"adjective","meaning":"Lacking flavour, interest, or excitement; dull and flat.","example":"The committee's insipid report — three hundred pages of data without a single clear recommendation — left everyone wondering why it had been commissioned.","synonyms":["Bland","Dull","Flat"],"antonyms":["Vivid","Compelling","Stimulating"]},
-    {"word":"irascible","pos":"adjective","meaning":"Having a tendency to get angry quickly and easily; hot-tempered.","example":"The irascible dean was feared not for his judgment but for his unpredictability — a minor formatting error could trigger the same fury as a genuine academic failing.","synonyms":["Hot-tempered","Irritable","Choleric"],"antonyms":["Placid","Even-tempered","Patient"]},
+    {"word":"irascible","pos":"adjective","meaning":"Having a tendency to get angry quickly and easily; hot-tempered.","example":"The irascible dean was feared not for his judgment but for his unpredictability — a minor formatting error could trigger the same fury as a genuine failing.","synonyms":["Hot-tempered","Irritable","Choleric"],"antonyms":["Placid","Even-tempered","Patient"]},
     {"word":"laconic","pos":"adjective","meaning":"Using very few words; expressing much in few words.","example":"When asked to describe his management philosophy, the CEO's laconic answer — 'Hire well; get out of the way' — was widely quoted.","synonyms":["Brief","Terse","Concise"],"antonyms":["Verbose","Garrulous","Long-winded"]},
     {"word":"lucid","pos":"adjective","meaning":"Expressed clearly and easy to understand; mentally clear and coherent.","example":"Her lucid breakdown of the economic model impressed the panel, who had grown used to presenters hiding poor analysis behind dense jargon.","synonyms":["Clear","Coherent","Intelligible"],"antonyms":["Obscure","Muddled","Opaque"]},
     {"word":"maverick","pos":"noun / adjective","meaning":"An independent-minded person who refuses to follow the group; a nonconformist.","example":"Regarded as a maverick by her department, she published research that contradicted the dominant theory — and was eventually proved correct.","synonyms":["Nonconformist","Individualist","Free thinker"],"antonyms":["Conformist","Follower"]},
-    {"word":"morose","pos":"adjective","meaning":"Sullen, gloomy, and unsociable; persistently sad or bad-tempered.","example":"He grew morose in the months following the restructuring, barely speaking during team meetings that had once been animated by his jokes.","synonyms":["Sullen","Glum","Despondent"],"antonyms":["Cheerful","Buoyant","Animated"]},
+    {"word":"morose","pos":"adjective","meaning":"Sullen, gloomy, and unsociable; persistently sad or bad-tempered.","example":"He grew morose in the months following the restructuring, barely speaking during meetings that had once been animated by his jokes.","synonyms":["Sullen","Glum","Despondent"],"antonyms":["Cheerful","Buoyant","Animated"]},
     {"word":"obdurate","pos":"adjective","meaning":"Stubbornly refusing to change one's opinion or course of action.","example":"The mediators found both sides obdurate — neither willing to concede on even procedural matters, let alone substantive ones.","synonyms":["Stubborn","Inflexible","Intransigent"],"antonyms":["Pliable","Compliant","Open-minded"]},
     {"word":"obsequious","pos":"adjective","meaning":"Excessively eager to serve or please others; fawningly submissive.","example":"His obsequious behaviour around senior management was so transparent that even those he was trying to impress found it off-putting.","synonyms":["Sycophantic","Fawning","Servile"],"antonyms":["Assertive","Forthright","Independent"]},
     {"word":"officious","pos":"adjective","meaning":"Annoyingly eager to offer services or assert authority in areas where it is not required.","example":"The officious volunteer reorganised the charity's filing system without being asked, then complained when no one thanked her.","synonyms":["Intrusive","Overbearing","Meddlesome"],"antonyms":["Unobtrusive","Reserved","Discreet"]},
@@ -500,126 +571,143 @@ const SEED = [
       "Among these subordinates one typically finds a second, more irritating species: the [[officious]] operator, who compensates for a lack of genuine authority by multiplying procedural demands, inserting themselves into decisions that do not require their presence, and treating every minor administrative detail as an opportunity to demonstrate indispensability. Such people are not malicious; they are merely terrified of irrelevance, and their hyperactivity is, in its own way, a form of the same [[apathy]] that afflicts the disengaged — for both the frenetically busy and the completely inert share a fundamental indifference to what the work is actually for.",
       "Into this atmosphere, occasionally, a [[maverick]] arrives. She does not [[appease]] where the system expects appeasement. She asks the questions the room has agreed not to ask. She refuses to issue the [[perfunctory]] endorsements that oil the machinery of consensus, and insists instead on examining whether the machinery is producing anything of value. The response, invariably, is swift. Within months, she finds herself [[relegate|relegated]] — not dismissed outright, for that would attract attention, but quietly moved to a role with a prestigious-sounding title and no meaningful influence. The message, though never stated, is clear: this organisation does not reward clarity; it rewards compliance.",
       "__break__",
-      "The language through which institutional power sustains itself deserves particular scrutiny. Those in authority have long understood that [[ambiguous]] language is a tool of control — that policies stated in vague, open-ended terms can be enforced selectively, praised broadly, and defended from almost any angle. A directive described as 'promoting synergistic stakeholder engagement' is [[specious]] in the most technical sense: it has the form of meaning without the substance. It can be cited to justify action or inaction equally well; it commits no one to anything; and when the results prove poor, the [[ambiguous|ambiguity]] of the original mandate becomes, conveniently, the explanation.",
-      "This linguistic fog is seldom challenged, partly because those who might challenge it have been [[relegate|relegated]] or departed, and partly because the public — the ultimate audience for all institutional communication — has retreated into something between [[apathy]] and [[antipathy]]. The [[apathy|apathetic]] do not engage because engagement seems to change nothing. The [[antipathy|antipathetic]] have developed such a deep, settled dislike for the entire apparatus of institutional life that they have no interest in reforming it from within. Between these two positions, genuine civic participation struggles to find purchase.",
+      "The language through which institutional power sustains itself deserves particular scrutiny. Those in authority have long understood that [[ambiguous]] language is a tool of control — that policies stated in vague, open-ended terms can be enforced selectively, praised broadly, and defended from almost any angle. A directive described as 'promoting synergistic stakeholder engagement' is [[specious]] in the most technical sense: it has the form of meaning without the substance. It can be cited to justify action or inaction equally well; and when the results prove poor, the [[ambiguous|ambiguity]] of the original mandate becomes, conveniently, the explanation.",
+      "This linguistic fog is seldom challenged, partly because those who might challenge it have been [[relegate|relegated]] or departed, and partly because the public has retreated into something between [[apathy]] and [[antipathy]]. The [[apathy|apathetic]] do not engage because engagement seems to change nothing. The [[antipathy|antipathetic]] have developed such a deep, settled dislike for the entire apparatus of institutional life that they have no interest in reforming it from within. Between these two positions, genuine civic participation struggles to find purchase.",
       "__break__",
-      "One consequence of this culture is a [[paucity]] of honest conversation at every level of public life. The [[irascible]] leader, prone to [[tirade|tirades]] at the first sign of resistance, ensures that even legitimate concerns are never raised, since no one wishes to be on the receiving end of a screaming match dressed up as management. The [[morose]] mid-level official, demoralised by years of watching good ideas [[relegate|relegated]] and bad ones celebrated, has learned to keep his observations to himself. The [[reticent]] expert, who possesses genuine knowledge but has grown wary of a culture that [[admonish|admonishes]] candour and rewards flattery, offers nothing beyond what is directly requested — and sometimes not even that.",
+      "One consequence of this culture is a [[paucity]] of honest conversation at every level of public life. The [[irascible]] leader, prone to [[tirade|tirades]] at the first sign of resistance, ensures that even legitimate concerns are never raised. The [[morose]] mid-level official, demoralised by years of watching good ideas [[relegate|relegated]] and bad ones celebrated, has learned to keep his observations to himself. The [[reticent]] expert, who possesses genuine knowledge but has grown wary of a culture that [[admonish|admonishes]] candour and rewards flattery, offers nothing beyond what is directly requested — and sometimes not even that.",
       "What remains, in the absence of these voices, is [[insipid]]: presentations without argument, reports without conclusion, meetings without decision. The institutional record of such organisations reads like a document designed to prove that activity occurred without revealing whether anything was accomplished. Even the most [[recondite]] analysis, buried in appendices no one reads, tends to arrive too late and recommend too little.",
       "__break__",
-      "There is, in all of this, a species of [[anachronism]]. The hierarchical deference, the intolerance of dissent, the faith that seniority confers wisdom and that loyalty to the leader is equivalent to service to the institution — these are not merely bad ideas. They are ideas whose failures have been documented, debated, and denounced for generations. That they persist is not a mystery; it is a choice, sustained by those who benefit from the arrangement and enabled by those who have grown too [[morose|morose]] or too tired to resist it.",
-      "The [[laconic]] insight of the best institutional reformers has always been essentially the same: that an organisation which cannot hear honest criticism will eventually become unable to function. Not because criticism is pleasant — it rarely is — and not because the [[irascible|irascible]] response it provokes can always be [[appease|appeased]] — it often cannot. But because the alternative — a culture of [[obsequious|obsequious]] silence, [[specious|specious]] reassurance, and [[perfunctory|perfunctory]] accountability — is not stability. It is slow collapse, made comfortable by the fiction that nothing is wrong.",
+      "There is, in all of this, a species of [[anachronism]]. The hierarchical deference, the intolerance of dissent, the faith that seniority confers wisdom — these are not merely bad ideas. They are ideas whose failures have been documented, debated, and denounced for generations. That they persist is not a mystery; it is a choice, sustained by those who benefit from the arrangement and enabled by those who have grown too [[morose|morose]] or too tired to resist it.",
+      "The [[laconic]] insight of the best institutional reformers has always been the same: that an organisation which cannot hear honest criticism will eventually become unable to function. Not because criticism is pleasant — it rarely is — and not because the [[irascible|irascible]] response it provokes can always be [[appease|appeased]] — it often cannot. But because the alternative — a culture of [[obsequious|obsequious]] silence, [[specious|specious]] reassurance, and [[perfunctory|perfunctory]] accountability — is not stability. It is slow collapse, made comfortable by the fiction that nothing is wrong.",
       "What such institutions need is not a revolution but something quieter and more demanding: the [[lucid]] habit of calling things what they are. A failure is a failure. A [[specious|specious]] argument is a [[specious|specious]] argument. An [[obdurate]] commitment to these simple standards of honesty, maintained even when the room grows cold and the promotions stop coming, is neither naive nor [[recondite|recondite]]. It is, in fact, the most practical thing in the world — and the rarest."
     ]
   },
   "questions":{
     "mcq":[
-      {"q":"In the passage, to 'venerate' a leader most closely means to:","opts":["Hold them legally accountable for decisions","Regard them with almost reverential respect","Actively campaign for their advancement","Routinely question their directives in formal settings"],"ans":1,"exp":"Venerate means to regard with deep respect bordering on worship. The passage describes it as a tendency so strong that questioning the venerated figure begins to feel 'like sacrilege' — a religious metaphor that reinforces the word's meaning precisely."},
-      {"q":"The word 'obsequious' best describes subordinates who:","opts":["Perform their duties with quiet efficiency","Express disagreement through formal channels","Anticipate and smooth over displeasure before it forms","Challenge authority through carefully worded internal memos"],"ans":2,"exp":"Obsequious means excessively deferential or submissive. The passage describes it as 'performatively deferential' — not merely polite, but actively anticipating displeasure and preventing it from ever surfacing."},
-      {"q":"A 'specious' argument, as used in the passage, is one that:","opts":["Is too technically complex for ordinary evaluation","Has the appearance of correctness without actual substance","Deliberately distorts documented factual evidence","Is too brief to be evaluated with confidence"],"ans":1,"exp":"Specious means superficially correct but actually flawed. The passage illustrates this with corporate jargon that 'has the form of meaning without the substance' — it sounds credible but commits to nothing."},
-      {"q":"The phrase 'beneath its pristine exterior' implies that the institution:","opts":["Has recently been renovated or structurally updated","Appears orderly while concealing deep resistance to scrutiny","Is genuinely well-run but poorly understood from outside","Maintains a transparent culture of genuine accountability"],"ans":1,"exp":"Pristine means immaculately clean or unspoiled. Used metaphorically — the institution's polished surface conceals its internal resistance to honest examination."},
-      {"q":"The maverick is 'relegated' rather than dismissed outright because:","opts":["The organisation genuinely values her skills","Outright dismissal would draw unwanted attention to the problem","She has accumulated too much seniority to remove directly","Her direct supervisor personally advocates for her retention"],"ans":1,"exp":"The passage states explicitly: 'not dismissed outright, for that would attract attention.' Relegation is a quieter, less visible way of neutralising dissent."},
-      {"q":"A 'paucity of honest conversation' in the passage means:","opts":["An excess of conflicting viewpoints in public forums","An insufficient amount of genuine, open dialogue","A recent reduction in the frequency of formal meetings","A lack of clarity only in written communications"],"ans":1,"exp":"Paucity means a scarcity or shortage. A paucity of honest conversation means there is not enough of it — the institutional culture of deference and fear has made candour both rare and professionally risky."},
-      {"q":"The phrase 'laconic insight' suggests that the best reformers' wisdom is:","opts":["Complex and requires extended study to penetrate","Expressed in few words but carries disproportionate weight","Delivered in an emotionally charged and passionate manner","Overly simplified and therefore limited in practical application"],"ans":1,"exp":"Laconic means using very few words. The author implies the best reformers distil their insight rather than elaborate it — the truth they offer is concentrated, not complex."},
-      {"q":"Describing hierarchical deference as 'a species of anachronism' implies that it:","opts":["Is a relatively recent innovation in management practice","Belongs to an earlier era whose failures are already well-documented","Is characteristic only of institutions in developing economies","Is so complex in origin that most people misunderstand it"],"ans":1,"exp":"Anachronism = something out of its proper time. The author argues these attitudes belong to a past whose failures have been documented for generations — their persistence is therefore a deliberate choice."}
+      {"q":"In the passage, to 'venerate' a leader most closely means to:","opts":["Hold them legally accountable for decisions","Regard them with almost reverential respect","Actively campaign for their advancement","Routinely question their directives"],"ans":1,"exp":"Venerate means to regard with deep respect bordering on worship. Questioning the venerated figure begins to feel 'like sacrilege' — a religious metaphor reinforcing the word's meaning."},
+      {"q":"The word 'obsequious' best describes subordinates who:","opts":["Perform their duties with quiet efficiency","Express disagreement through formal channels","Anticipate and smooth over displeasure before it forms","Challenge authority through carefully worded memos"],"ans":2,"exp":"Obsequious means excessively deferential. The passage describes it as 'performatively deferential' — actively anticipating displeasure and preventing it from ever surfacing."},
+      {"q":"A 'specious' argument, as used in the passage, is one that:","opts":["Is too technically complex for ordinary evaluation","Has the appearance of correctness without actual substance","Deliberately distorts documented factual evidence","Is too brief to be evaluated with confidence"],"ans":1,"exp":"Specious means superficially correct but actually flawed — 'the form of meaning without the substance.'"},
+      {"q":"'Beneath its pristine exterior' implies that the institution:","opts":["Has recently been renovated","Appears orderly while concealing deep resistance to scrutiny","Is genuinely well-run but poorly understood from outside","Maintains a transparent culture of accountability"],"ans":1,"exp":"Pristine used metaphorically — the polished surface conceals internal resistance to honest examination."},
+      {"q":"The maverick is 'relegated' rather than dismissed outright because:","opts":["The organisation genuinely values her skills","Outright dismissal would draw unwanted attention to the problem","She has accumulated too much seniority to remove","Her supervisor personally advocates for her"],"ans":1,"exp":"The passage states: 'not dismissed outright, for that would attract attention.' Relegation is a quieter way of neutralising dissent."},
+      {"q":"A 'paucity of honest conversation' means:","opts":["An excess of conflicting viewpoints","An insufficient amount of genuine, open dialogue","A recent reduction in formal meetings","A lack of clarity only in written communications"],"ans":1,"exp":"Paucity means a scarcity or shortage. The institutional culture of deference has made candour both rare and professionally risky."},
+      {"q":"The phrase 'laconic insight' suggests the reformers' wisdom is:","opts":["Complex and requires extended study","Expressed in few words but carries disproportionate weight","Delivered in an emotionally charged manner","Overly simplified and therefore limited"],"ans":1,"exp":"Laconic means very few words. The best reformers distil their insight rather than elaborate it — concentrated, not complex."},
+      {"q":"Describing hierarchical deference as 'a species of anachronism' implies it:","opts":["Is a relatively recent innovation","Belongs to an earlier era whose failures are already well-documented","Is characteristic only of developing-economy institutions","Is so complex most people misunderstand it"],"ans":1,"exp":"Anachronism = something out of its proper time. These attitudes belong to a past whose failures 'have been documented for generations' — their persistence is a deliberate choice."}
     ],
     "syn":[
-      {"q":"Choose the best SYNONYM for 'irascible':","opts":["Placid","Hot-tempered","Reticent","Obsequious"],"ans":1,"exp":"Irascible = easily angered. 'Hot-tempered' is the closest synonym — both describe someone who flares up quickly and disproportionately under provocation."},
+      {"q":"Choose the best SYNONYM for 'irascible':","opts":["Placid","Hot-tempered","Reticent","Obsequious"],"ans":1,"exp":"Irascible = easily angered. 'Hot-tempered' is the closest — both describe someone who flares up quickly under provocation."},
       {"q":"Which word is most OPPOSITE in meaning to 'reticent'?","opts":["Laconic","Garrulous","Morose","Specious"],"ans":1,"exp":"Reticent = quiet and reserved. Its antonym is garrulous = excessively talkative. Note that laconic (brief) is similar in result to reticent, not opposite."},
-      {"q":"Choose the best SYNONYM for 'obdurate':","opts":["Pliable","Intransigent","Verbose","Apathetic"],"ans":1,"exp":"Obdurate = stubbornly refusing to change. 'Intransigent' is the closest synonym — both describe an inflexible position that resists all persuasion."},
-      {"q":"Which word is most OPPOSITE in meaning to 'apathy'?","opts":["Antipathy","Reticence","Engagement","Moroseness"],"ans":2,"exp":"Apathy = lack of interest or concern. Its antonym is engagement or enthusiasm. Note: antipathy (strong dislike) is not the same as engagement — the passage itself draws this distinction carefully."},
-      {"q":"Choose the best SYNONYM for 'placate':","opts":["Provoke","Appease","Admonish","Venerate"],"ans":1,"exp":"Placate means to calm someone who is upset by satisfying their demands. 'Appease' is the closest synonym — both involve giving something to reduce conflict."}
+      {"q":"Choose the best SYNONYM for 'obdurate':","opts":["Pliable","Intransigent","Verbose","Apathetic"],"ans":1,"exp":"Obdurate = stubbornly refusing to change. 'Intransigent' is the closest — both describe an inflexible position that resists all persuasion."},
+      {"q":"Which word is most OPPOSITE in meaning to 'apathy'?","opts":["Antipathy","Reticence","Engagement","Moroseness"],"ans":2,"exp":"Apathy = lack of interest. Its antonym is engagement. Note: antipathy (strong dislike) is not the same as engagement — the passage draws this distinction carefully."},
+      {"q":"Choose the best SYNONYM for 'placate':","opts":["Provoke","Appease","Admonish","Venerate"],"ans":1,"exp":"Placate means to calm someone by satisfying their demands. 'Appease' is the closest — both involve giving something to reduce conflict."}
     ],
     "inf":[
-      {"q":"The author's description of the maverick being 'quietly moved to a role with a prestigious-sounding title and no meaningful influence' is primarily intended to illustrate:","opts":["That organisations eventually reward independent thinkers with senior roles","That institutional systems neutralise dissent through subtle marginalisation, not open conflict","That the maverick herself chose to step back from her position","That leaders use varied roles to develop high-potential employees"],"ans":1,"exp":"The passage presents relegation as a deliberate institutional strategy — visible enough to seem reasonable, invisible enough to avoid scrutiny."},
-      {"q":"When the author describes obsequious silence as 'slow collapse, made comfortable by the fiction that nothing is wrong,' the phrase most nearly implies:","opts":["That the institution is deliberately concealing financial losses","That superficial stability masks a gradual, unacknowledged deterioration","That employees are simply unaware of how poorly the institution performs","That the organisation's problems are too minor to warrant intervention"],"ans":1,"exp":"The danger described is precisely its invisibility. 'Slow collapse' is contrasted with dramatic, visible crisis — the 'fiction' of stability prevents corrective intervention."},
-      {"q":"The author's comparison of the 'frenetically busy' officious operator to the 'completely inert' disengaged person suggests that:","opts":["Activity level is a reliable indicator of institutional productivity","Both extremes share an indifference to the actual purpose of the work","The officious operator is significantly less harmful than the truly disengaged","Time management is the central failure in most institutional environments"],"ans":1,"exp":"This is the passage's sharpest irony — that busyness can be as purposeless as inertia. Both types avoid engaging with what the work is actually for."},
-      {"q":"The author's statement that reform requires 'not a revolution but something quieter and more demanding' implies:","opts":["That radical institutional change is undesirable in all contexts","That sustained honesty is more difficult and more transformative than dramatic gestures","That the author believes structural reform is ultimately impossible","That leadership transitions should always be gradual rather than sudden"],"ans":1,"exp":"The 'quieter and more demanding' formulation is the passage's philosophical core. Consistent honesty — maintained under social pressure — is harder than a single act of rebellion."},
-      {"q":"Based on the passage, the author most likely believes that ambiguous institutional language is:","opts":["An unfortunate by-product of organisational complexity, not intentional","A deliberate instrument of control that protects decision-makers from accountability","Primarily the result of poor writing skills among bureaucratic staff","A temporary phase that organisations naturally grow out of over time"],"ans":1,"exp":"The author states that 'those in authority have long understood that ambiguous language is a tool of control.' The word 'understood' signals deliberate use, not accident."}
+      {"q":"The maverick is 'quietly moved to a role with a prestigious-sounding title and no meaningful influence' primarily to illustrate:","opts":["That organisations eventually reward independent thinkers","That institutional systems neutralise dissent through subtle marginalisation, not open conflict","That the maverick chose to step back","That leaders use varied roles to develop high-potential employees"],"ans":1,"exp":"Relegation is a deliberate strategy — visible enough to seem reasonable, invisible enough to avoid scrutiny."},
+      {"q":"'Slow collapse, made comfortable by the fiction that nothing is wrong' most nearly implies:","opts":["The institution is concealing financial losses","Superficial stability masks a gradual, unacknowledged deterioration","Employees are unaware of poor performance","The problems are too minor to warrant intervention"],"ans":1,"exp":"The danger is its invisibility. The 'fiction' of stability prevents the corrective intervention a visible crisis would trigger."},
+      {"q":"The comparison of the 'frenetically busy' operator to the 'completely inert' person suggests:","opts":["Activity level reliably indicates productivity","Both extremes share an indifference to the actual purpose of the work","The officious operator is less harmful than the disengaged","Time management is the central failure"],"ans":1,"exp":"The sharpest irony: busyness can be as purposeless as inertia. Both types avoid engaging with what the work is actually for."},
+      {"q":"Reform requires 'not a revolution but something quieter and more demanding' implies:","opts":["Radical change is undesirable in all contexts","Sustained honesty is more difficult and more transformative than dramatic gestures","The author believes structural reform is impossible","Transitions should always be gradual"],"ans":1,"exp":"Consistent honesty — maintained under social pressure — is harder than a single act of rebellion, and ultimately more effective."},
+      {"q":"The author most likely believes that ambiguous institutional language is:","opts":["An unfortunate by-product of complexity, not intentional","A deliberate instrument of control protecting decision-makers from accountability","Primarily the result of poor writing skills","A temporary phase organisations grow out of"],"ans":1,"exp":"'Those in authority have long understood that ambiguous language is a tool of control.' The word 'understood' signals deliberate use, not accident."}
     ],
     "sent":[
-      {"q":"The minister's _______ response to the journalist's pointed question — a single nod and three words — told the room more than any _______ ever could have.","opts":["irascible … perfunctory summary","laconic … tirade","obdurate … specious defence","reticent … lucid explanation"],"ans":1,"exp":"'Laconic' describes extreme brevity. A 'tirade' — a long, emotionally charged outburst — is its natural contrast."},
-      {"q":"Her colleagues found it easier to simply _______ her concerns with vague reassurances than to address the _______ in resources that her report had so clearly identified.","opts":["venerate … anachronism","appease … paucity","relegate … antipathy","admonish … apathy"],"ans":1,"exp":"'Appease' = satisfy with surface concessions. 'Paucity' = a shortage. Together they capture the institutional preference for surface comfort over genuine remediation."},
-      {"q":"The board's _______ review of the failed project — thirty minutes, no hard questions, unanimous approval — demonstrated exactly the kind of _______ governance the auditors had warned against.","opts":["perfunctory … specious","reticent … obdurate","laconic … venerated","morose … antipathetic"],"ans":0,"exp":"'Perfunctory' = done as routine without genuine care. 'Specious' = having the form of legitimacy without the substance."}
+      {"q":"The minister's _______ response — a single nod and three words — told the room more than any _______ ever could have.","opts":["irascible … perfunctory summary","laconic … tirade","obdurate … specious defence","reticent … lucid explanation"],"ans":1,"exp":"'Laconic' describes extreme brevity. A 'tirade' — a long, emotionally charged outburst — is its natural contrast."},
+      {"q":"Her colleagues found it easier to simply _______ her concerns with vague reassurances than to address the _______ in resources that her report had so clearly identified.","opts":["venerate … anachronism","appease … paucity","relegate … antipathy","admonish … apathy"],"ans":1,"exp":"'Appease' = satisfy with surface concessions. 'Paucity' = a shortage. Together they capture the preference for surface comfort over genuine remediation."},
+      {"q":"The board's _______ review — thirty minutes, no hard questions, unanimous approval — demonstrated exactly the kind of _______ governance the auditors had warned against.","opts":["perfunctory … specious","reticent … obdurate","laconic … venerated","morose … antipathetic"],"ans":0,"exp":"'Perfunctory' = done as routine without care. 'Specious' = having the form of legitimacy without the substance."}
     ],
     "tone":[
-      {"q":"The overall tone of this passage can best be described as:","opts":["Satirical and comedic, mocking institutional figures through irony","Analytically critical, with controlled contempt for institutional self-deception","Optimistic, suggesting reform is straightforwardly achievable through good leadership","Detached and descriptive, presenting all sides without expressing a clear view"],"ans":1,"exp":"The author is not neutral — language like 'obsequious silence' and 'specious reassurance' carries unmistakable disapproval. But the tone is analytical rather than satirical."},
-      {"q":"The author's portrayal of the maverick figure is best described as:","opts":["Cautionary — implying mavericks invite their own difficulties through poor strategy","Sympathetic and admiring — presenting her as a corrective force suppressed by the system","Ambivalent — acknowledging her qualities while cataloguing her strategic errors","Dismissive — suggesting her methods are too idealistic to survive real institutions"],"ans":1,"exp":"Every detail about the maverick is positive: she asks the right questions, refuses hollow endorsements. Her fate — quiet relegation — is presented as the system's failure, not her own."}
+      {"q":"The overall tone of this passage can best be described as:","opts":["Satirical and comedic, mocking institutional figures","Analytically critical, with controlled contempt for institutional self-deception","Optimistic, suggesting reform is straightforwardly achievable","Detached and descriptive, presenting all sides without judgment"],"ans":1,"exp":"The author is not neutral — 'obsequious silence' and 'specious reassurance' carry unmistakable disapproval. But the tone is analytical, not satirical — the author diagnoses, not ridicules."},
+      {"q":"The author's portrayal of the maverick figure is best described as:","opts":["Cautionary — implying mavericks invite their own difficulties","Sympathetic and admiring — presenting her as a corrective force suppressed by the system","Ambivalent — acknowledging her qualities while cataloguing her errors","Dismissive — suggesting her methods are too idealistic"],"ans":1,"exp":"Every detail about the maverick is positive. Her fate — quiet relegation — is presented as the system's failure, not her own."}
     ]
   }
 }
 ];
 /* __SEED_END__ */
 
-// ═══════════════════════════════════════════════════════
-//  STORAGE
-// ═══════════════════════════════════════════════════════
-const LS_KEY = 'marginalia_batches_v1';
+// ═══════════════════════════════════════════
+//  THEME
+// ═══════════════════════════════════════════
 const THEME_KEY = 'marginalia_theme';
 
-function loadBatches() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
-    const seedIds = new Set(SEED.map(b => b.id));
-    const extra = saved.filter(b => !seedIds.has(b.id));
-    return [...SEED, ...extra];
-  } catch (e) { return [...SEED]; }
-}
-
-function saveBatches(batches) {
-  const seedIds = new Set(SEED.map(b => b.id));
-  const extra = batches.filter(b => !seedIds.has(b.id));
-  localStorage.setItem(LS_KEY, JSON.stringify(extra));
-}
-
-// ═══════════════════════════════════════════════════════
-//  THEME
-// ═══════════════════════════════════════════════════════
 function applyTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
   localStorage.setItem(THEME_KEY, t);
   const icon = document.getElementById('theme-icon');
   if (t === 'light') {
-    icon.innerHTML = '<circle cx="7" cy="7" r="2.6" stroke="currentColor" stroke-width="1.4"/><path d="M7 1v1.6M7 11.4V13M1 7h1.6M11.4 7H13M2.8 2.8l1.1 1.1M10.1 10.1l1.1 1.1M2.8 11.2l1.1-1.1M10.1 3.9l1.1-1.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>';
+    icon.innerHTML = '<circle cx="7" cy="7" r="2.6" stroke="currentColor" stroke-width="1.4"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.9 2.9l1.1 1.1M10 10l1.1 1.1M2.9 11.1l1.1-1.1M10 4l1.1-1.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>';
   } else {
     icon.innerHTML = '<path d="M11.5 8.3A4.5 4.5 0 0 1 5.7 2.5a5 5 0 1 0 5.8 5.8z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>';
   }
 }
 function toggleTheme() {
-  const cur = document.documentElement.getAttribute('data-theme');
-  applyTheme(cur === 'dark' ? 'light' : 'dark');
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 }
 applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 
-// ═══════════════════════════════════════════════════════
-//  PARSE PASSAGE
-// ═══════════════════════════════════════════════════════
-function parsePassagePara(text, batchId) {
+// ═══════════════════════════════════════════
+//  SIDEBAR TOGGLE
+// ═══════════════════════════════════════════
+const SB_KEY = 'marginalia_sidebar';
+
+function isMobile() { return window.innerWidth <= 900; }
+
+function toggleSidebar() {
+  const app = document.getElementById('app');
+  if (isMobile()) {
+    // Mobile: open/close drawer
+    app.classList.toggle('sb-mobile-open');
+  } else {
+    // Desktop: collapse/expand tab
+    const collapsed = app.classList.toggle('sb-off');
+    localStorage.setItem(SB_KEY, collapsed ? '0' : '1');
+  }
+}
+
+function closeMobileSidebar() {
+  document.getElementById('app').classList.remove('sb-mobile-open');
+}
+
+// Close mobile drawer on resize to desktop
+window.addEventListener('resize', () => {
+  if (!isMobile()) document.getElementById('app').classList.remove('sb-mobile-open');
+}, { passive: true });
+
+// Close mobile drawer when Escape is pressed
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeMobileSidebar();
+});
+
+// Restore desktop sidebar state
+if (localStorage.getItem(SB_KEY) === '0') {
+  document.getElementById('app').classList.add('sb-off');
+}
+
+// ═══════════════════════════════════════════
+//  PASSAGE PARSER
+// ═══════════════════════════════════════════
+function parsePassage(text, batchId) {
   return text.replace(/\[\[(\w+)(?:\|([^\]]+))?\]\]/g, (_, key, disp) => {
     const d = disp || key;
-    return `<span class="vhl" data-word="${key}" data-batch="${batchId}" onclick="jumpToWord('${key}','${batchId}')" title="See meaning of '${key}'">${d}</span>`;
+    return `<span class="vhl" onclick="jumpToWord('${key}','${batchId}')" title="See meaning of '${key}'">${d}</span>`;
   });
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  RENDER
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function renderAll() {
-  const batches = loadBatches();
-  renderTOC(batches);
-  renderBatches(batches);
+  renderTOC(SEED);
+  renderBatches(SEED);
+  setupScrollSpy();
 }
 
 function renderTOC(batches) {
   const toc = document.getElementById('toc');
   toc.innerHTML = '';
-  if (!batches.length) { toc.innerHTML = '<div style="padding:1rem;font-size:.8rem;color:var(--muted);font-style:italic">No batches yet.</div>'; return; }
   batches.forEach((b, i) => {
     const g = document.createElement('div');
     g.className = 'toc-group';
     g.innerHTML = `
       <div class="toc-batch-label">
-        <span class="toc-batch-num">B${i + 1}</span>
-        ${b.title.length > 22 ? b.title.slice(0, 22) + '…' : b.title}
+        <span class="toc-bnum">B${i + 1}</span>
+        ${b.title.length > 21 ? b.title.slice(0, 21) + '…' : b.title}
       </div>
       <div class="toc-links">
         <a href="#${b.id}-passage">Passage</a>
@@ -631,402 +719,181 @@ function renderTOC(batches) {
 }
 
 function renderBatches(batches) {
-  const container = document.getElementById('batches-container');
-  container.innerHTML = '';
-  if (!batches.length) {
-    container.innerHTML = '<div class="empty-state">No batches yet. Click "Add New Batch" to get started.</div>';
-    return;
-  }
+  const c = document.getElementById('batches-container');
+  c.innerHTML = '';
   batches.forEach((b, i) => {
     const sec = document.createElement('div');
     sec.className = 'batch-section';
     sec.id = b.id;
     sec.style.animationDelay = (i * 0.07) + 's';
-    sec.innerHTML = renderBatchHTML(b, i);
-    container.appendChild(sec);
+    sec.innerHTML = batchHTML(b, i);
+    c.appendChild(sec);
   });
 }
 
-function renderBatchHTML(b, i) {
-  const isSeed = SEED.some(s => s.id === b.id);
-  const delBtn = isSeed ? '' : `<button class="del-batch-btn" onclick="deleteBatch('${b.id}')">Remove</button>`;
-  const wordsHTML = b.words.map(w => renderWordCard(w, b.id)).join('');
-  const questionsHTML = renderAllQuestions(b);
-  const passageHTML = renderPassageHTML(b);
+function batchHTML(b, i) {
+  const wordsHTML = b.words.map(w => wordCardHTML(w, b.id)).join('');
+  const qHTML = questionsHTML(b);
+  const pHTML = passageHTML(b);
   const diff = b.difficulty || 'High Frequency';
   return `
     <div class="batch-banner">
-      <div class="batch-banner-row">
-        <div>
-          <div class="batch-num-tag">Batch ${i + 1}</div>
-          <div class="batch-title">${b.title}</div>
-          <div class="batch-subtitle">${b.subtitle || ''}</div>
-          <div class="batch-meta">
-            <span class="meta-tag freq"><span class="dot"></span>${diff}</span>
-            <span class="meta-tag"><span class="dot"></span>${b.wordCount || b.words.length} words</span>
-            <span class="meta-tag"><span class="dot"></span>${b.readingTime || '5–7 min'}</span>
-          </div>
+      <div class="batch-inner">
+        <div class="b-num-tag">Batch ${i + 1}</div>
+        <div class="b-title">${b.title}</div>
+        <div class="b-sub">${b.subtitle || ''}</div>
+        <div class="b-meta">
+          <span class="m-tag freq"><span class="dot"></span>${diff}</span>
+          <span class="m-tag"><span class="dot"></span>${b.wordCount || b.words.length} words</span>
+          <span class="m-tag"><span class="dot"></span>${b.readingTime || '5–7 min'}</span>
         </div>
-        <div class="batch-actions">${delBtn}</div>
       </div>
     </div>
-
     <div class="subsec" id="${b.id}-passage">
-      <div class="subsec-header">
-        <span class="subsec-tag">Passage</span>
-        <h3>Editorial</h3>
-      </div>
-      <div class="passage-card">${passageHTML}</div>
+      <div class="subsec-header"><span class="s-tag">Passage</span><h3>Editorial</h3></div>
+      <div class="passage-card">${pHTML}</div>
     </div>
-
     <div class="subsec" id="${b.id}-words">
-      <div class="subsec-header">
-        <span class="subsec-tag">Section 02</span>
-        <h3>Meanings &amp; Usage</h3>
-      </div>
+      <div class="subsec-header"><span class="s-tag">Section 02</span><h3>Meanings &amp; Usage</h3></div>
       <div>${wordsHTML}</div>
     </div>
-
     <div class="subsec" id="${b.id}-exam">
-      <div class="subsec-header">
-        <span class="subsec-tag">Section 03</span>
-        <h3>Exam Focus</h3>
-      </div>
-      ${questionsHTML}
-    </div>
-  `;
+      <div class="subsec-header"><span class="s-tag">Section 03</span><h3>Exam Focus</h3></div>
+      ${qHTML}
+    </div>`;
 }
 
-function renderPassageHTML(b) {
-  if (!b.passage) return '<p style="color:var(--muted);font-style:italic">No passage provided.</p>';
-  const paras = b.passage.paragraphs.map(p => {
-    if (p === '__break__') return `<div class="passage-break">· · ·</div>`;
-    return `<p>${parsePassagePara(p, b.id)}</p>`;
+function passageHTML(b) {
+  if (!b.passage) return '<p style="color:var(--muted);font-style:italic">No passage.</p>';
+  const ps = b.passage.paragraphs.map(p => {
+    if (p === '__break__') return `<div class="p-break">· · ·</div>`;
+    return `<p>${parsePassage(p, b.id)}</p>`;
   }).join('');
-  return `
-    <div class="passage-title">${b.passage.title || b.title}</div>
-    <hr class="passage-rule"/>
-    ${paras}`;
+  return `<div class="p-title">${b.passage.title || b.title}</div><hr class="p-rule"/>${ps}`;
 }
 
-function renderWordCard(w, batchId) {
-  const cardId = `card-${batchId}-${w.word}`;
-  const synPills = (w.synonyms || []).map(s => `<span class="pill syn">${s}</span>`).join('');
-  const antPills = (w.antonyms || []).map(a => `<span class="pill ant">${a}</span>`).join('');
+function wordCardHTML(w, bId) {
+  const id = `card-${bId}-${w.word}`;
+  const syns = (w.synonyms || []).map(s => `<span class="pill syn">${s}</span>`).join('');
+  const ants = (w.antonyms || []).map(a => `<span class="pill ant">${a}</span>`).join('');
   return `
-    <div class="word-card" id="${cardId}">
+    <div class="word-card" id="${id}">
       <div class="wc-head" onclick="toggleCard(this)">
-        <div class="wc-title-row">
+        <div class="wc-row">
           <span class="wc-name">${w.word}</span>
           <span class="wc-pos">${w.pos || ''}</span>
-          <span class="wc-quick">${(w.meaning || '').split(';')[0].split('.')[0].split(',')[0]}</span>
+          <span class="wc-quick">${(w.meaning||'').split(';')[0].split('.')[0].split(',')[0]}</span>
         </div>
         <span class="wc-toggle">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 4.5L6.5 8.5L10.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </span>
       </div>
       <div class="wc-body">
-        <p class="wc-meaning">${w.meaning || ''}</p>
-        <div class="wc-example">"${w.example || ''}"</div>
+        <p class="wc-meaning">${w.meaning||''}</p>
+        <div class="wc-eg">"${w.example||''}"</div>
         <div class="syn-row">
-          <span class="pill-lbl">Syn:</span>${synPills}
-          <span class="pill-lbl" style="margin-left:.4rem">Ant:</span>${antPills}
+          <span class="pl">Syn:</span>${syns}
+          <span class="pl" style="margin-left:.35rem">Ant:</span>${ants}
         </div>
       </div>
     </div>`;
 }
 
-function renderAllQuestions(b) {
+function questionsHTML(b) {
   const q = b.questions;
-  if (!q) return '<p style="color:var(--muted);font-style:italic">No questions for this batch.</p>';
-  let html = '';
+  if (!q) return '<p style="color:var(--muted);font-style:italic">No questions.</p>';
   const parts = [
-    { key: 'mcq', label: 'Part A — Vocabulary MCQs' },
-    { key: 'syn', label: 'Part B — Synonym & Antonym' },
-    { key: 'inf', label: 'Part C — Inference' },
-    { key: 'sent', label: 'Part D — Sentence Completion' },
-    { key: 'tone', label: 'Part E — Tone & Style Analysis' }
+    {key:'mcq',  label:'Part A — Vocabulary MCQs'},
+    {key:'syn',  label:'Part B — Synonym & Antonym'},
+    {key:'inf',  label:'Part C — Inference'},
+    {key:'sent', label:'Part D — Sentence Completion'},
+    {key:'tone', label:'Part E — Tone & Style Analysis'}
   ];
-  parts.forEach(pt => {
+  return parts.map(pt => {
     const qs = q[pt.key];
-    if (!qs || !qs.length) return;
-    let qhtml = qs.map((item, qi) => renderQuestion(item, qi, `${b.id}-${pt.key}`)).join('');
-    html += `<div class="exam-part"><div class="exam-part-label">${pt.label} (${qs.length} question${qs.length > 1 ? 's' : ''})</div>${qhtml}</div>`;
-  });
-  return html;
+    if (!qs || !qs.length) return '';
+    const qh = qs.map((item, qi) => questionHTML(item, qi, `${b.id}-${pt.key}`)).join('');
+    return `<div class="exam-part"><div class="ep-label">${pt.label} (${qs.length})</div>${qh}</div>`;
+  }).join('');
 }
 
-function renderQuestion(item, qi, prefix) {
-  const lets = ['A', 'B', 'C', 'D', 'E'];
+function questionHTML(item, qi, pfx) {
+  const L = ['A','B','C','D','E'];
   const opts = item.opts.map((o, oi) => `
-    <div class="opt" data-qi="${qi}" data-oi="${oi}" data-pfx="${prefix}" data-ans="${item.ans}" onclick="selectOpt(this)">
-      <span class="opt-let">${lets[oi]}.</span><span>${o}</span>
+    <div class="opt" data-qi="${qi}" data-oi="${oi}" data-pfx="${pfx}" data-ans="${item.ans}" onclick="pick(this)">
+      <span class="opt-l">${L[oi]}.</span><span>${o}</span>
     </div>`).join('');
   return `
     <div class="q-card">
       <div class="q-num">Q${qi + 1}</div>
       <div class="q-text">${item.q}</div>
       <div class="opts">${opts}</div>
-      <div class="ans-reveal" id="rev-${prefix}-${qi}"><strong>✓ ${lets[item.ans]}. ${item.opts[item.ans]}</strong><br/><span style="opacity:.85;font-size:.9rem;line-height:1.6">${item.exp || ''}</span></div>
+      <div class="a-reveal" id="rev-${pfx}-${qi}">
+        <strong>✓ ${L[item.ans]}. ${item.opts[item.ans]}</strong><br/>
+        <span style="opacity:.85;font-size:.88rem;line-height:1.6">${item.exp||''}</span>
+      </div>
     </div>`;
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  INTERACTIONS
-// ═══════════════════════════════════════════════════════
-function toggleCard(header) {
-  header.classList.toggle('open');
-  header.nextElementSibling.classList.toggle('open');
+// ═══════════════════════════════════════════
+function toggleCard(h) {
+  h.classList.toggle('open');
+  h.nextElementSibling.classList.toggle('open');
 }
 
-function selectOpt(el) {
+function pick(el) {
   const qi = el.dataset.qi, pfx = el.dataset.pfx, ans = parseInt(el.dataset.ans);
   const oi = parseInt(el.dataset.oi);
-  const siblings = document.querySelectorAll(`[data-qi="${qi}"][data-pfx="${pfx}"]`);
-  siblings.forEach(s => s.classList.add('disabled'));
+  document.querySelectorAll(`[data-qi="${qi}"][data-pfx="${pfx}"]`).forEach(s => s.classList.add('disabled'));
   el.classList.add(oi === ans ? 'correct' : 'wrong');
-  if (oi !== ans) siblings[ans].classList.add('correct');
+  if (oi !== ans) document.querySelectorAll(`[data-qi="${qi}"][data-pfx="${pfx}"]`)[ans].classList.add('correct');
   const rev = document.getElementById(`rev-${pfx}-${qi}`);
   if (rev) rev.classList.add('show');
 }
 
 function jumpToWord(word, batchId) {
-  const cardId = `card-${batchId}-${word}`;
-  const card = document.getElementById(cardId);
+  const card = document.getElementById(`card-${batchId}-${word}`);
   if (!card) return;
-  const head = card.querySelector('.wc-head');
-  const body = card.querySelector('.wc-body');
-  if (!body.classList.contains('open')) {
-    head.classList.add('open');
-    body.classList.add('open');
-  }
+  const h = card.querySelector('.wc-head'), b = card.querySelector('.wc-body');
+  if (!b.classList.contains('open')) { h.classList.add('open'); b.classList.add('open'); }
   card.scrollIntoView({ behavior: 'smooth', block: 'center' });
   card.classList.remove('flash-card');
   void card.offsetWidth;
   card.classList.add('flash-card');
-  setTimeout(() => card.classList.remove('flash-card'), 1200);
+  setTimeout(() => card.classList.remove('flash-card'), 1100);
 }
 
-// ═══════════════════════════════════════════════════════
-//  BATCH MANAGEMENT
-// ═══════════════════════════════════════════════════════
-function deleteBatch(id) {
-  if (!confirm('Remove this batch? Built-in seed batches cannot be deleted.')) return;
-  const batches = loadBatches().filter(b => b.id !== id || SEED.some(s => s.id === b.id));
-  saveBatches(batches);
-  renderAll();
-  showToast('Batch removed.');
-}
-
-function importBatch() {
-  const raw = document.getElementById('batch-json-input').value.trim();
-  const err = document.getElementById('modal-error');
-  err.textContent = '';
-  if (!raw) { err.textContent = 'Please paste a JSON batch object.'; return; }
-  let parsed;
-  try { parsed = JSON.parse(raw); }
-  catch (e) { err.textContent = 'Invalid JSON. ' + e.message; return; }
-  // Allow single object or array
-  const incoming = Array.isArray(parsed) ? parsed : [parsed];
-  const batches = loadBatches();
-  const existingIds = new Set(batches.map(b => b.id));
-  let added = 0, skipped = 0;
-  for (const p of incoming) {
-    if (!p.id || !p.title || !Array.isArray(p.words)) {
-      err.textContent = 'Missing required fields in one entry: id, title, words. Check template.';
-      return;
-    }
-    if (existingIds.has(p.id)) { skipped++; continue; }
-    batches.push(p); existingIds.add(p.id); added++;
-  }
-  saveBatches(batches);
-  closeAddModal();
-  renderAll();
-  showToast(`${added} batch${added !== 1 ? 'es' : ''} added${skipped ? `, ${skipped} skipped (duplicate id)` : ''}.`);
-  if (added) {
-    setTimeout(() => {
-      const el = document.getElementById(incoming[0].id);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 300);
-  }
-}
-
-// ═══════════════════════════════════════════════════════
-//  FILE IMPORT / EXPORT
-// ═══════════════════════════════════════════════════════
-function importFromFile() {
-  const input = document.getElementById('file-import');
-  input.value = '';
-  input.onchange = e => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = evt => {
-      try {
-        const data = JSON.parse(evt.target.result);
-        const incoming = Array.isArray(data) ? data : [data];
-        const batches = loadBatches();
-        const existingIds = new Set(batches.map(b => b.id));
-        let added = 0, skipped = 0;
-        for (const p of incoming) {
-          if (!p.id || !p.title || !Array.isArray(p.words)) { skipped++; continue; }
-          if (existingIds.has(p.id)) { skipped++; continue; }
-          batches.push(p); existingIds.add(p.id); added++;
-        }
-        saveBatches(batches);
-        renderAll();
-        showToast(`Imported ${added} batch${added !== 1 ? 'es' : ''}${skipped ? `, ${skipped} skipped` : ''}.`);
-      } catch (err) {
-        showToast('Import failed: invalid JSON file.', true);
-      }
-    };
-    reader.readAsText(file);
-  };
-  input.click();
-}
-
-function exportBackup() {
-  const batches = loadBatches();
-  const blob = new Blob([JSON.stringify(batches, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'marginalia_backup.json';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(a.href);
-  showToast(`Backed up ${batches.length} batch${batches.length !== 1 ? 'es' : ''} → marginalia_backup.json`);
-}
-
-function exportStandaloneHTML() {
-  try {
-    const batches = loadBatches();
-    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-    const newSeedJSON = JSON.stringify(batches, null, 2);
-    const re = /\/\* __SEED_START__ \*\/[\s\S]*?\/\* __SEED_END__ \*\//;
-    if (!re.test(html)) { showToast('Could not locate seed markers in HTML.', true); return; }
-    const newHtml = html.replace(re,
-      `/* __SEED_START__ */\nconst SEED = ${newSeedJSON};\n/* __SEED_END__ */`);
-    const blob = new Blob([newHtml], { type: 'text/html' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'marginalia.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(a.href);
-    showToast(`Standalone HTML downloaded — ${batches.length} batches baked in.`);
-  } catch (e) {
-    showToast('Export failed: ' + e.message, true);
-  }
-}
-
-// ═══════════════════════════════════════════════════════
-//  MODALS
-// ═══════════════════════════════════════════════════════
-function openAddModal() {
-  document.getElementById('batch-json-input').value = '';
-  document.getElementById('modal-error').textContent = '';
-  document.getElementById('add-modal').classList.add('open');
-}
-function closeAddModal() { document.getElementById('add-modal').classList.remove('open'); }
-function openTemplateModal() {
-  document.getElementById('tpl-code-block').textContent = getTemplate();
-  document.getElementById('tpl-modal').classList.add('open');
-}
-function closeTplModal() { document.getElementById('tpl-modal').classList.remove('open'); }
-
-document.getElementById('add-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeAddModal(); });
-document.getElementById('tpl-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeTplModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAddModal(); closeTplModal(); } });
-
-function copyTemplate() {
-  navigator.clipboard.writeText(getTemplate())
-    .then(() => showToast('Template copied!'))
-    .catch(() => showToast('Copy failed — copy manually.', true));
-}
-
-function getTemplate() {
-  return `{
-  "id": "batch_N",
-  "title": "Your Passage Title",
-  "subtitle": "Optional subtitle or theme",
-  "difficulty": "High Frequency",
-  "readingTime": "5–7 min",
-  "wordCount": 25,
-
-  "words": [
-    {
-      "word": "example",
-      "pos": "noun",
-      "meaning": "A thing that illustrates a rule or serves as a model.",
-      "example": "This sentence demonstrates the word example in context.",
-      "synonyms": ["instance", "illustration"],
-      "antonyms": ["counterexample"]
-    }
-  ],
-
-  "passage": {
-    "title": "Full Passage Title",
-    "paragraphs": [
-      "Paragraph one with [[example]] word marked. Use [[key|displayed]] for inflected forms.",
-      "Paragraph two with more [[example|examples]] in context.",
-      "__break__",
-      "Paragraphs after a section divider. Use __break__ as its own array entry."
-    ]
-  },
-
-  "questions": {
-    "mcq":  [
-      {
-        "q": "Question text. Use <em>italics</em> for quoted terms.",
-        "opts": ["Option A", "Option B", "Option C", "Option D"],
-        "ans": 0,
-        "exp": "Explanation of why the answer is correct."
-      }
-    ],
-    "syn":  [ /* same structure */ ],
-    "inf":  [ /* same structure */ ],
-    "sent": [ /* same structure */ ],
-    "tone": [ /* same structure */ ]
-  }
-}`;
-}
-
-// ═══════════════════════════════════════════════════════
-//  TOAST
-// ═══════════════════════════════════════════════════════
-function showToast(msg, isErr) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.toggle('err', !!isErr);
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
-}
-
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  SCROLL SPY
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function setupScrollSpy() {
-  const allLinks = document.querySelectorAll('.sidebar a[href^="#"]');
-  const ids = [...allLinks].map(a => a.getAttribute('href').slice(1));
-  function onScroll() {
+  const links = document.querySelectorAll('.sidebar a[href^="#"]');
+  const ids = [...links].map(a => a.getAttribute('href').slice(1));
+  function run() {
     let cur = '';
     ids.forEach(id => {
       const el = document.getElementById(id);
-      if (el && window.scrollY >= el.getBoundingClientRect().top + window.scrollY - 140) cur = id;
+      if (el && window.scrollY >= el.getBoundingClientRect().top + window.scrollY - 150) cur = id;
     });
-    allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  window.addEventListener('scroll', run, { passive: true });
+  run();
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  INIT
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 renderAll();
-setupScrollSpy();
+
+// Close mobile drawer when a TOC link is tapped
+document.querySelectorAll('.toc-links a, .toc-static a').forEach(a => {
+  a.addEventListener('click', () => {
+    if (isMobile()) closeMobileSidebar();
+  });
+});
 </script>
 </body>
 </html>
