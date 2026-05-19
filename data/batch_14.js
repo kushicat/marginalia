@@ -78,9 +78,10 @@ SEED.push(
     {"word":"zeal","pos":"noun","meaning":"Great energy or enthusiasm in pursuit of a cause.","example":"She pursued electoral reform with the zeal of someone who had seen the cost of its absence.","synonyms":["enthusiasm","fervour"],"antonyms":["apathy","indifference"]}
   ],
   "passage": {
-    "title": "Machinegun Test — No Passage",
+    "title": "Machinegun Test ",
     "paragraphs": [
-      "This batch is a pure question drill. No passage. Work through all question sets below."
+      "This batch is a pure question drill. No passage. Work through all question sets below.
+      Let's see if you can survive this round! "
     ]
   },
   "questions": {
