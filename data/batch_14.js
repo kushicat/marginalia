@@ -80,8 +80,7 @@ SEED.push(
   "passage": {
     "title": "Machinegun Test ",
     "paragraphs": [
-      "This batch is a pure question drill. No passage. Work through all question sets below.
-      Let's see if you can survive this round! "
+      "This batch is a pure question drill. No passage. Work through all question sets below. Let's see if you can survive this round! "
     ]
   },
   "questions": {
@@ -690,18 +689,4 @@ SEED.push(
       }
     ]
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 });
