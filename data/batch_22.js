@@ -57,45 +57,45 @@ SEED.push(
 
       "__break__",
 
-      "**Hamlet (c. 1600)**",
+      "Hamlet (c. 1600)",
 
       "Hamlet, Prince of Denmark, returns home from his studies to find his father dead, his uncle Claudius crowned king, and his mother Gertrude already remarried to the same uncle. The marriage, in Hamlet's eyes, is [[Reprehensible|reprehensible]]. Before he has time to mourn properly, the ghost of his father appears on the castle ramparts and accuses Claudius of murder. The ghost asks not for [[Reparation|reparation]] in any spiritual sense, but for something more concrete: revenge.",
 
-      "From that moment, Hamlet is [[Vex|vexed]] by a question that has haunted readers ever since. Should he act, or should he doubt? He cannot simply trust the ghost without testing its [[Veracity|veracity]]. After all, in a Europe still half-immersed in [[Theology|theology]], a spirit could as easily be a devil as a father. So Hamlet stages a play within a play, hoping the king's reaction will betray him. *'The play's the thing,'* he tells himself, *'wherein I'll catch the conscience of the king.'*",
+      "From that moment, Hamlet is [[Vex|vexed]] by a question that has haunted readers ever since. Should he act, or should he doubt? He cannot simply trust the ghost without testing its [[Veracity|veracity]]. After all, in a Europe still half-immersed in [[Theology|theology]], a spirit could as easily be a devil as a father. So Hamlet stages a play within a play, hoping the king's reaction will betray him. 'The play's the thing,' he tells himself, 'wherein I'll catch the conscience of the king.'",
 
       "His delay, however, has [[Ramification|ramifications]] no one anticipates. Polonius, the king's [[Sanctimonious|sanctimonious]] adviser, is killed by mistake. Ophelia, driven mad by grief, drowns. Her brother Laertes, in a perfectly [[Reciprocal|reciprocal]] rage, swears to kill Hamlet. The court descends into [[Recrimination|recrimination]] and plotting. By the final scene, almost no one is left standing. Hamlet kills Claudius, but only after being fatally poisoned himself.",
 
-      "What makes Hamlet [[Sublime|sublime]] rather than merely violent is its [[Rhetoric|rhetoric]]. His soliloquies, especially *'To be, or not to be,'* turn private hesitation into public philosophy. Shakespeare does not [[Reprove|reprove]] his hero for hesitating. He suggests, instead, that thoughtful people in corrupt courts often have no clean choices left, only [[Tentative|tentative]] ones. Action and inaction become almost [[Tantamount|tantamount]], because both lead to loss.",
+      "What makes Hamlet [[Sublime|sublime]] rather than merely violent is its [[Rhetoric|rhetoric]]. His soliloquies, especially 'To be, or not to be,' turn private hesitation into public philosophy. Shakespeare does not [[Reprove|reprove]] his hero for hesitating. He suggests, instead, that thoughtful people in corrupt courts often have no clean choices left, only [[Tentative|tentative]] ones. Action and inaction become almost [[Tantamount|tantamount]], because both lead to loss.",
 
       "__break__",
 
-      "**Macbeth (c. 1606)**",
+      "Macbeth (c. 1606)",
 
-      "If Hamlet is the tragedy of a man who thinks too much, Macbeth is the tragedy of a man who thinks far too little, then suddenly too much, and always at the wrong moment. The play opens on a Scottish heath where three witches greet a returning general with a prophecy: *'All hail, Macbeth, that shalt be king hereafter.'* In any other man, such a meeting would be dismissed as the [[Serendipity|serendipity]] of a strange day. In Macbeth, it lights a fuse.",
+      "If Hamlet is the tragedy of a man who thinks too much, Macbeth is the tragedy of a man who thinks far too little, then suddenly too much, and always at the wrong moment. The play opens on a Scottish heath where three witches greet a returning general with a prophecy: 'All hail, Macbeth, that shalt be king hereafter.' In any other man, such a meeting would be dismissed as the [[Serendipity|serendipity]] of a strange day. In Macbeth, it lights a fuse.",
 
       "Encouraged, then commanded, by his fiercely ambitious wife, Macbeth murders the gentle King Duncan in his own home. The act is [[Reprehensible|reprehensible]] on every count: betrayal of guest, of kinsman, of king. He does not simply rise through merit; he [[Usurp|usurps]] the throne. From that one murder grows a forest of further killings. Banquo, his friend, is assassinated because the witches hinted his descendants would rule. Macduff's wife and children are slaughtered in their own home, a scene of moral [[Squalor|squalor]] that Shakespeare refuses to soften.",
 
-      "Macbeth squanders every advantage he had. He had been a [[Staunch|staunch]] general, a respected nobleman, a man whose loyalty was [[Sacrosanct|sacrosanct]] in the eyes of his king. He [[Squander|squanders]] all of it within the span of a few nights. Lady Macbeth, who had been the more [[Tenacious|tenacious]] of the two in pushing the crime forward, begins to sleepwalk, washing imaginary blood from her hands. *'Out, damned spot,'* she whispers, in lines that have outlived empires.",
+      "Macbeth squanders every advantage he had. He had been a [[Staunch|staunch]] general, a respected nobleman, a man whose loyalty was [[Sacrosanct|sacrosanct]] in the eyes of his king. He [[Squander|squanders]] all of it within the span of a few nights. Lady Macbeth, who had been the more [[Tenacious|tenacious]] of the two in pushing the crime forward, begins to sleepwalk, washing imaginary blood from her hands. 'Out, damned spot,' she whispers, in lines that have outlived empires.",
 
-      "The play offers a [[Salutary|salutary]] warning that needs no [[Theology|theology]] to land. Ambition without [[Scrupulous|scrupulous]] limits does not [[Replenish|replenish]] the soul; it drains it. By the end, Macbeth is a hollow man fighting a war he cannot win, muttering that life is *'a tale told by an idiot, full of sound and fury, signifying nothing.'* It is one of the most quietly devastating expressions of [[Sloth|sloth]] of spirit in English drama, the exhaustion of a man who has nothing left to believe in.",
+      "The play offers a [[Salutary|salutary]] warning that needs no [[Theology|theology]] to land. Ambition without [[Scrupulous|scrupulous]] limits does not [[Replenish|replenish]] the soul; it drains it. By the end, Macbeth is a hollow man fighting a war he cannot win, muttering that life is 'a tale told by an idiot, full of sound and fury, signifying nothing.' It is one of the most quietly devastating expressions of [[Sloth|sloth]] of spirit in English drama, the exhaustion of a man who has nothing left to believe in.",
 
       "__break__",
 
-      "**King Lear (c. 1606)**",
+      "King Lear (c. 1606)",
 
-      "King Lear, ageing and increasingly impatient, decides to divide his kingdom among his three daughters. The condition is grotesque in its [[Vanity|vanity]]: each daughter must publicly declare how much she loves him, and the share will match the speech. The two elder daughters, Goneril and Regan, deliver [[Saccharine|saccharine]] flattery that would [[Vex|vex]] anyone with a working ear. The youngest, Cordelia, refuses to compete. *'I love your majesty according to my bond, no more nor less,'* she says, with a [[Succinct|succinct]] honesty that costs her everything.",
+      "King Lear, ageing and increasingly impatient, decides to divide his kingdom among his three daughters. The condition is grotesque in its [[Vanity|vanity]]: each daughter must publicly declare how much she loves him, and the share will match the speech. The two elder daughters, Goneril and Regan, deliver [[Saccharine|saccharine]] flattery that would [[Vex|vex]] anyone with a working ear. The youngest, Cordelia, refuses to compete. 'I love your majesty according to my bond, no more nor less,' she says, with a [[Succinct|succinct]] honesty that costs her everything.",
 
       "Lear, mistaking sweetness for love and bluntness for [[Sloth|sloth]] of affection, disowns her. He divides the kingdom between the two flatterers and keeps for himself only a [[Surrogate|surrogate]] court of a hundred knights. Within weeks, both elder daughters strip him of even that. He stumbles out into a storm on the heath, half-mad, accompanied by his Fool, his loyal servant Kent, and a beggar who is in fact the disguised Edgar, son of the Earl of Gloucester. The court that had been [[Sacrosanct|sacrosanct]] to him is now closed. He is no longer financially [[Solvent|solvent]] in the literal sense of a king, no longer politically solvent in the sense of authority. He is simply an old man in the rain.",
 
       "Parallel to Lear's collapse runs the subplot of Gloucester, betrayed by his [[Venal|venal]] illegitimate son Edmund. Edmund is the play's coldest creation, a man for whom morality is mere [[Rhetoric|rhetoric]] used by the powerful. He has no [[Trepidation|trepidation]] in plotting his brother's exile or his father's blinding. His father's eyes are gouged out on stage in a scene whose horror still shocks modern audiences.",
 
-      "Lear's recovery, when it finally comes, is built on the simplest [[Secular|secular]] truth, not on [[Theology|theology]] or revelation. He has been wrong. Cordelia returns to forgive him, and for a few quiet scenes, the play allows something like grace. *'Pray you now, forget and forgive. I am old and foolish,'* he tells her. The reunion does not feel [[Superfluous|superfluous]] or sentimental; it feels earned by suffering.",
+      "Lear's recovery, when it finally comes, is built on the simplest [[Secular|secular]] truth, not on [[Theology|theology]] or revelation. He has been wrong. Cordelia returns to forgive him, and for a few quiet scenes, the play allows something like grace. 'Pray you now, forget and forgive. I am old and foolish,' he tells her. The reunion does not feel [[Superfluous|superfluous]] or sentimental; it feels earned by suffering.",
 
-      "Then Shakespeare withholds the ending we want. Cordelia is hanged. Lear dies of grief, holding her body, asking onlookers to look at her lips. *'Look there, look there,'* he says, and dies. There is no comforting [[Reparation|reparation]] for what has happened. The [[Stricture|stricture]] of the play's ending is severe. It refuses the audience the consolation of justice.",
+      "Then Shakespeare withholds the ending we want. Cordelia is hanged. Lear dies of grief, holding her body, asking onlookers to look at her lips. 'Look there, look there,' he says, and dies. There is no comforting [[Reparation|reparation]] for what has happened. The [[Stricture|stricture]] of the play's ending is severe. It refuses the audience the consolation of justice.",
 
       "__break__",
 
-      "**One Mirror**",
+      "One Mirror",
 
       "Why these three together? Because each examines a different way the human mind fails. Hamlet shows us the tragedy of thinking without acting. Macbeth shows us the tragedy of acting without thinking. Lear shows us the tragedy of confusing the noisy [[Rhetoric|rhetoric]] of love for love itself.",
 
