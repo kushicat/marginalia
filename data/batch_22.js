@@ -6,48 +6,330 @@ SEED.push(
   "difficulty": "Medium Frequency",
   "readingTime": "9-11 min",
   "wordCount": 40,
+
   "words": [
-    { "word": "Ramification", "pos": "noun", "meaning": "A complex consequence or branching result of an action.", "example": "He underestimated the ramifications of resigning so publicly.", "synonyms": ["consequence", "implication"], "antonyms": ["cause", "source"] },
-    { "word": "Reciprocal", "pos": "adjective", "meaning": "Given or done in return; mutual.", "example": "Trust between siblings is rarely perfectly reciprocal.", "synonyms": ["mutual", "two-way"], "antonyms": ["one-sided", "unilateral"] },
-    { "word": "Recrimination", "pos": "noun", "meaning": "Mutual accusation; counter-blame between parties.", "example": "The divorce settlement dissolved into months of recrimination.", "synonyms": ["countercharge", "blame"], "antonyms": ["reconciliation", "forgiveness"] },
-    { "word": "Reparation", "pos": "noun", "meaning": "Compensation made for a wrong or injury.", "example": "No public reparation could restore what private cruelty had broken.", "synonyms": ["compensation", "restitution"], "antonyms": ["harm", "injury"] },
-    { "word": "Replenish", "pos": "verb", "meaning": "To restore by filling up again.", "example": "A long sleep can replenish what a week of stress drained.", "synonyms": ["restock", "renew"], "antonyms": ["deplete", "exhaust"] },
-    { "word": "Reprehensible", "pos": "adjective", "meaning": "Deserving severe criticism or condemnation.", "example": "Hoarding medicine during a famine is reprehensible by any measure.", "synonyms": ["shameful", "disgraceful"], "antonyms": ["admirable", "praiseworthy"] },
-    { "word": "Reprove", "pos": "verb", "meaning": "To rebuke or scold, often gently.", "example": "The teacher reproved him without raising her voice.", "synonyms": ["rebuke", "admonish"], "antonyms": ["praise", "compliment"] },
-    { "word": "Rhetoric", "pos": "noun", "meaning": "The art of persuasive speech, sometimes with negative connotation of empty eloquence.", "example": "His campaign promises were pure rhetoric with no policy behind them.", "synonyms": ["oratory", "discourse"], "antonyms": ["plainness", "silence"] },
-    { "word": "Saccharine", "pos": "adjective", "meaning": "Excessively sweet or sentimental in a cloying way.", "example": "The greeting card's saccharine verse made him cringe.", "synonyms": ["cloying", "sentimental"], "antonyms": ["sincere", "subtle"] },
-    { "word": "Sacrosanct", "pos": "adjective", "meaning": "Regarded as too sacred to be interfered with.", "example": "In some families, Friday dinner is sacrosanct.", "synonyms": ["sacred", "inviolable"], "antonyms": ["ordinary", "vulnerable"] },
-    { "word": "Salient", "pos": "adjective", "meaning": "Most noticeable or important.", "example": "The salient point of her argument was buried in jargon.", "synonyms": ["prominent", "key"], "antonyms": ["minor", "hidden"] },
-    { "word": "Salutary", "pos": "adjective", "meaning": "Producing good or beneficial effects, often through warning.", "example": "His public failure was a salutary lesson to overconfident colleagues.", "synonyms": ["beneficial", "constructive"], "antonyms": ["harmful", "damaging"] },
-    { "word": "Sanctimonious", "pos": "adjective", "meaning": "Making a show of being morally superior; hypocritically pious.", "example": "His sanctimonious lecture irritated everyone who knew his actual habits.", "synonyms": ["self-righteous", "preachy"], "antonyms": ["humble", "sincere"] },
-    { "word": "Scintillate", "pos": "verb", "meaning": "To sparkle or be brilliantly clever.", "example": "Her wit scintillates even in dull conversations.", "synonyms": ["sparkle", "dazzle"], "antonyms": ["dull", "fade"] },
-    { "word": "Scrupulous", "pos": "adjective", "meaning": "Diligent, thorough, and morally careful.", "example": "She was scrupulous about citing every source she used.", "synonyms": ["meticulous", "ethical"], "antonyms": ["careless", "unethical"] },
-    { "word": "Secular", "pos": "adjective", "meaning": "Not connected with religious or spiritual matters.", "example": "The university maintains a strictly secular curriculum.", "synonyms": ["nonreligious", "worldly"], "antonyms": ["sacred", "religious"] },
-    { "word": "Serendipity", "pos": "noun", "meaning": "Fortunate discovery or coincidence by chance.", "example": "Finding that bookshop was pure serendipity.", "synonyms": ["chance", "luck"], "antonyms": ["misfortune", "design"] },
-    { "word": "Sloth", "pos": "noun", "meaning": "Reluctance to work or make an effort; laziness.", "example": "Sloth, more than failure, is what ends most ambitions.", "synonyms": ["laziness", "idleness"], "antonyms": ["diligence", "energy"] },
-    { "word": "Sobriety", "pos": "noun", "meaning": "Seriousness, gravity, or the state of being sober.", "example": "She addressed the court with quiet sobriety.", "synonyms": ["seriousness", "gravity"], "antonyms": ["frivolity", "intoxication"] },
-    { "word": "Solvent", "pos": "adjective", "meaning": "Having more assets than debts; financially sound.", "example": "The company remained solvent only because of an emergency loan.", "synonyms": ["stable", "paying"], "antonyms": ["bankrupt", "insolvent"] },
-    { "word": "Squalor", "pos": "noun", "meaning": "Extreme dirt and unpleasantness, especially from poverty.", "example": "Tourists rarely see the squalor a few streets behind the postcards.", "synonyms": ["filth", "misery"], "antonyms": ["cleanliness", "luxury"] },
-    { "word": "Squander", "pos": "verb", "meaning": "To waste, especially money or opportunity, in a reckless way.", "example": "He squandered an inheritance in less than two years.", "synonyms": ["waste", "fritter"], "antonyms": ["save", "conserve"] },
-    { "word": "Staunch", "pos": "adjective", "meaning": "Loyal and committed in attitude.", "example": "She remained a staunch defender of her old mentor.", "synonyms": ["loyal", "steadfast"], "antonyms": ["disloyal", "fickle"] },
-    { "word": "Stratum", "pos": "noun", "meaning": "A layer or level, especially of society.", "example": "The play exposes every stratum of the household.", "synonyms": ["layer", "tier"], "antonyms": ["whole", "unity"] },
-    { "word": "Stricture", "pos": "noun", "meaning": "A strict rule or sharp criticism.", "example": "The strictures of the new policy frustrated even senior staff.", "synonyms": ["restriction", "regulation"], "antonyms": ["freedom", "liberty"] },
-    { "word": "Stringent", "pos": "adjective", "meaning": "Strict, precise, and demanding.", "example": "Banking exams have notoriously stringent time limits.", "synonyms": ["strict", "rigid"], "antonyms": ["lenient", "flexible"] },
-    { "word": "Sublime", "pos": "adjective", "meaning": "Of extraordinary excellence, beauty, or grandeur.", "example": "Some passages of the play are simply sublime.", "synonyms": ["magnificent", "majestic"], "antonyms": ["ordinary", "dull"] },
-    { "word": "Succinct", "pos": "adjective", "meaning": "Briefly and clearly expressed.", "example": "Her summary was succinct enough to fit on a postcard.", "synonyms": ["concise", "compact"], "antonyms": ["verbose", "rambling"] },
-    { "word": "Superfluous", "pos": "adjective", "meaning": "Exceeding what is sufficient or required; unnecessary.", "example": "After her clear apology, his explanation felt superfluous.", "synonyms": ["unnecessary", "redundant"], "antonyms": ["essential", "vital"] },
-    { "word": "Surrogate", "pos": "noun/adjective", "meaning": "A substitute, especially a person taking the role of another.", "example": "His older brother became a surrogate father after the accident.", "synonyms": ["substitute", "stand-in"], "antonyms": ["original", "actual"] },
-    { "word": "Tantamount", "pos": "adjective", "meaning": "Equivalent in effect or value (usually to something negative).", "example": "Saying nothing in that meeting was tantamount to agreement.", "synonyms": ["equivalent", "equal"], "antonyms": ["different", "unequal"] },
-    { "word": "Tenacious", "pos": "adjective", "meaning": "Holding firmly; persistent and determined.", "example": "She was tenacious in chasing answers no one wanted to give.", "synonyms": ["persistent", "relentless"], "antonyms": ["weak", "yielding"] },
-    { "word": "Tentative", "pos": "adjective", "meaning": "Not certain or fixed; hesitant.", "example": "We have a tentative date for the wedding.", "synonyms": ["provisional", "hesitant"], "antonyms": ["definite", "final"] },
-    { "word": "Theology", "pos": "noun", "meaning": "The study of religious belief and the nature of God.", "example": "He left law school to study theology in Edinburgh.", "synonyms": ["divinity", "doctrine"], "antonyms": ["secularism"] },
-    { "word": "Trepidation", "pos": "noun", "meaning": "A feeling of fear or anxiety about something that may happen.", "example": "She approached the results board with visible trepidation.", "synonyms": ["dread", "anxiety"], "antonyms": ["confidence", "calm"] },
-    { "word": "Ubiquitous", "pos": "adjective", "meaning": "Present or found everywhere.", "example": "Smartphones have become ubiquitous in classrooms.", "synonyms": ["widespread", "universal"], "antonyms": ["rare", "scarce"] },
-    { "word": "Usurp", "pos": "verb", "meaning": "To seize a position of power or authority wrongfully.", "example": "He effectively usurped his manager's role within months.", "synonyms": ["seize", "overthrow"], "antonyms": ["surrender", "yield"] },
-    { "word": "Venal", "pos": "adjective", "meaning": "Open to bribery; willing to act dishonestly for money.", "example": "A venal judge can ruin an entire generation's faith in courts.", "synonyms": ["corrupt", "bribable"], "antonyms": ["honest", "incorruptible"] },
-    { "word": "Veracity", "pos": "noun", "meaning": "Conformity to truth; truthfulness.", "example": "Witnesses' veracity is tested before their testimony is accepted.", "synonyms": ["truthfulness", "accuracy"], "antonyms": ["falsehood", "deception"] },
-    { "word": "Vex", "pos": "verb", "meaning": "To irritate, worry, or puzzle.", "example": "Small inconsistencies in his story continued to vex the investigators.", "synonyms": ["irritate", "trouble"], "antonyms": ["soothe", "calm"] }
+    {
+      "word": "Ramification",
+      "pos": "noun",
+      "meaning": "A complex consequence or branching result of an action.",
+      "example": "When the professor failed half the class without warning, the ramifications spread quickly — students filed formal complaints, the department launched a review, and two junior lecturers quietly distanced themselves from him.",
+      "synonyms": ["consequence", "implication"],
+      "antonyms": ["cause", "source"]
+    },
+    {
+      "word": "Reciprocal",
+      "pos": "adjective",
+      "meaning": "Given or done in return; mutual.",
+      "example": "She had spent three years supporting his research, editing his drafts at midnight, and attending every one of his presentations — but the support was never reciprocal; when her own thesis defence arrived, he was conveniently unreachable.",
+      "synonyms": ["mutual", "two-way"],
+      "antonyms": ["one-sided", "unilateral"]
+    },
+    {
+      "word": "Recrimination",
+      "pos": "noun",
+      "meaning": "Mutual accusation; counter-blame between parties.",
+      "example": "What started as a calm discussion about the failed group project quickly descended into recrimination — each member blaming another for missed deadlines, until no one could agree on a single fact.",
+      "synonyms": ["countercharge", "blame"],
+      "antonyms": ["reconciliation", "forgiveness"]
+    },
+    {
+      "word": "Reparation",
+      "pos": "noun",
+      "meaning": "Compensation made for a wrong or injury.",
+      "example": "After the university's plagiarism detection software wrongly flagged his dissertation, the institution offered no formal reparation — just a brief email acknowledging the error and a promise it would not affect his record.",
+      "synonyms": ["compensation", "restitution"],
+      "antonyms": ["harm", "injury"]
+    },
+    {
+      "word": "Replenish",
+      "pos": "verb",
+      "meaning": "To restore by filling up again.",
+      "example": "After four consecutive nights of revision and barely five hours of sleep total, she booked a full weekend away with no laptop and no alarm — determined to replenish whatever the exam season had drained from her.",
+      "synonyms": ["restock", "renew"],
+      "antonyms": ["deplete", "exhaust"]
+    },
+    {
+      "word": "Reprehensible",
+      "pos": "adjective",
+      "meaning": "Deserving severe criticism or condemnation.",
+      "example": "The lecturer's habit of publicly reading out the weakest answers to get a laugh from the class was, by most accounts, reprehensible — entertaining to some, but quietly humiliating to the students whose work was used.",
+      "synonyms": ["shameful", "disgraceful"],
+      "antonyms": ["admirable", "praiseworthy"]
+    },
+    {
+      "word": "Reprove",
+      "pos": "verb",
+      "meaning": "To rebuke or scold, often gently.",
+      "example": "His supervisor did not shout or send a formal warning — she simply closed the door, sat across from him, and reproved him in a tone calm enough to make the criticism land harder than any anger would have.",
+      "synonyms": ["rebuke", "admonish"],
+      "antonyms": ["praise", "compliment"]
+    },
+    {
+      "word": "Rhetoric",
+      "pos": "noun",
+      "meaning": "The art of persuasive speech, sometimes with negative connotation of empty eloquence.",
+      "example": "The student union president gave a passionate speech about reforming the grading system, but when pressed for specifics after the meeting, he had nothing concrete — it was all rhetoric, polished and confident, with no real plan beneath it.",
+      "synonyms": ["oratory", "discourse"],
+      "antonyms": ["plainness", "silence"]
+    },
+    {
+      "word": "Saccharine",
+      "pos": "adjective",
+      "meaning": "Excessively sweet or sentimental in a cloying way.",
+      "example": "The motivational poster plastered across the library entrance — 'Every page you read is a step toward your dreams!' — struck most postgraduate students as saccharine, the kind of thing that belongs in a primary school, not a research institution.",
+      "synonyms": ["cloying", "sentimental"],
+      "antonyms": ["sincere", "subtle"]
+    },
+    {
+      "word": "Sacrosanct",
+      "pos": "adjective",
+      "meaning": "Regarded as too sacred to be interfered with.",
+      "example": "In their shared flat, the rule was simple: whoever cooked did not do the dishes. It was never written down, but it was sacrosanct — the one domestic principle nobody dared to question, even during the worst weeks of finals.",
+      "synonyms": ["sacred", "inviolable"],
+      "antonyms": ["ordinary", "vulnerable"]
+    },
+    {
+      "word": "Salient",
+      "pos": "adjective",
+      "meaning": "Most noticeable or important.",
+      "example": "The report ran to forty pages, but the salient point — that the department had been underfunding postgraduate research for six years — was buried on page thirty-one, almost as if someone hoped it would go unnoticed.",
+      "synonyms": ["prominent", "key"],
+      "antonyms": ["minor", "hidden"]
+    },
+    {
+      "word": "Salutary",
+      "pos": "adjective",
+      "meaning": "Producing good or beneficial effects, often through warning.",
+      "example": "Failing his first university exam was, in retrospect, a salutary experience — it forced him to confront the study habits he had coasted on since secondary school and rebuild them from scratch before the damage became permanent.",
+      "synonyms": ["beneficial", "constructive"],
+      "antonyms": ["harmful", "damaging"]
+    },
+    {
+      "word": "Sanctimonious",
+      "pos": "adjective",
+      "meaning": "Making a show of being morally superior; hypocritically pious.",
+      "example": "He delivered a lengthy, sanctimonious speech at the department meeting about the importance of meeting deadlines — three weeks after submitting his own module feedback forms late for the second semester running.",
+      "synonyms": ["self-righteous", "preachy"],
+      "antonyms": ["humble", "sincere"]
+    },
+    {
+      "word": "Scintillate",
+      "pos": "verb",
+      "meaning": "To sparkle or be brilliantly clever.",
+      "example": "Most seminars in the department were predictable and slow, but when Dr. Farida joined the discussion, the conversation began to scintillate — her questions were sharper, her references broader, and students who had been half-asleep sat up.",
+      "synonyms": ["sparkle", "dazzle"],
+      "antonyms": ["dull", "fade"]
+    },
+    {
+      "word": "Scrupulous",
+      "pos": "adjective",
+      "meaning": "Diligent, thorough, and morally careful.",
+      "example": "She was scrupulous in her research methodology — every interview was recorded with consent, every transcript checked twice, and every claim in her findings was traceable to a named source, not a convenient paraphrase.",
+      "synonyms": ["meticulous", "ethical"],
+      "antonyms": ["careless", "unethical"]
+    },
+    {
+      "word": "Secular",
+      "pos": "adjective",
+      "meaning": "Not connected with religious or spiritual matters.",
+      "example": "Growing up in a religious household made her first year at a secular university genuinely disorienting — not because she lost her faith, but because she had never before had to articulate it in a space where it was simply not the default.",
+      "synonyms": ["nonreligious", "worldly"],
+      "antonyms": ["sacred", "religious"]
+    },
+    {
+      "word": "Serendipity",
+      "pos": "noun",
+      "meaning": "Fortunate discovery or coincidence by chance.",
+      "example": "He had gone to the conference to present a paper, not to find a research partner — but pure serendipity seated him next to a sociologist whose current project overlapped almost exactly with the gap he had been struggling to fill for months.",
+      "synonyms": ["chance", "luck"],
+      "antonyms": ["misfortune", "design"]
+    },
+    {
+      "word": "Sloth",
+      "pos": "noun",
+      "meaning": "Reluctance to work or make an effort; laziness.",
+      "example": "His intelligence was never in question — his tutors consistently noted his sharp instincts — but sloth kept pulling him back to mediocre grades; he would start strong and then stop before the work was finished, convinced that good enough was enough.",
+      "synonyms": ["laziness", "idleness"],
+      "antonyms": ["diligence", "energy"]
+    },
+    {
+      "word": "Sobriety",
+      "pos": "noun",
+      "meaning": "Seriousness, gravity, or the state of being sober.",
+      "example": "When she finally stood up to address the panel after a year of setbacks and rewrites, it was not with drama or visible emotion — she spoke with a quiet sobriety that made the committee listen more carefully than they might have otherwise.",
+      "synonyms": ["seriousness", "gravity"],
+      "antonyms": ["frivolity", "intoxication"]
+    },
+    {
+      "word": "Solvent",
+      "pos": "adjective",
+      "meaning": "Having more assets than debts; financially sound.",
+      "example": "By the end of his second year renting alone in the city, he was barely solvent — the student loan covered tuition and rent, but groceries, transport, and the occasional textbook had quietly eaten through every buffer he thought he had built.",
+      "synonyms": ["stable", "paying"],
+      "antonyms": ["bankrupt", "insolvent"]
+    },
+    {
+      "word": "Squalor",
+      "pos": "noun",
+      "meaning": "Extreme dirt and unpleasantness, especially from poverty.",
+      "example": "The internship paid nothing, and the only accommodation she could afford was a room above a takeaway — damp walls, broken heating, a shared bathroom with four strangers — the kind of squalor that becomes oddly normal when you have no alternatives.",
+      "synonyms": ["filth", "misery"],
+      "antonyms": ["cleanliness", "luxury"]
+    },
+    {
+      "word": "Squander",
+      "pos": "verb",
+      "meaning": "To waste, especially money or opportunity, in a reckless way.",
+      "example": "He had been offered a place on a fully funded research programme — the kind of opportunity most of his peers would have restructured their lives around — but he squandered it by simply not replying to the coordinator's emails until the deadline passed.",
+      "synonyms": ["waste", "fritter"],
+      "antonyms": ["save", "conserve"]
+    },
+    {
+      "word": "Staunch",
+      "pos": "adjective",
+      "meaning": "Loyal and committed in attitude.",
+      "example": "When accusations surfaced about the department head's conduct, most colleagues went quiet and waited to see which way the wind blew — but Dr. Okafor remained a staunch defender, attending every hearing and speaking clearly on record.",
+      "synonyms": ["loyal", "steadfast"],
+      "antonyms": ["disloyal", "fickle"]
+    },
+    {
+      "word": "Stratum",
+      "pos": "noun",
+      "meaning": "A layer or level, especially of society.",
+      "example": "The study found that access to unpaid internships was almost entirely determined by the socioeconomic stratum a student came from — those without family financial support simply could not afford to work for free in expensive cities.",
+      "synonyms": ["layer", "tier"],
+      "antonyms": ["whole", "unity"]
+    },
+    {
+      "word": "Stricture",
+      "pos": "noun",
+      "meaning": "A strict rule or sharp criticism.",
+      "example": "The new academic integrity policy came with so many strictures — no collaborative notes, no shared drafts, no online discussion of assessment topics — that students began to wonder whether the university trusted them at all.",
+      "synonyms": ["restriction", "regulation"],
+      "antonyms": ["freedom", "liberty"]
+    },
+    {
+      "word": "Stringent",
+      "pos": "adjective",
+      "meaning": "Strict, precise, and demanding.",
+      "example": "The ethics board applied stringent criteria to every proposed study involving human participants — consent forms, risk assessments, debrief protocols — a process that frustrated researchers in a hurry but protected everyone in the long run.",
+      "synonyms": ["strict", "rigid"],
+      "antonyms": ["lenient", "flexible"]
+    },
+    {
+      "word": "Sublime",
+      "pos": "adjective",
+      "meaning": "Of extraordinary excellence, beauty, or grandeur.",
+      "example": "She had read hundreds of academic papers in three years of postgraduate study, most of them competent and forgettable — but his prose was, in places, genuinely sublime: precise without being cold, and clear without being simple.",
+      "synonyms": ["magnificent", "majestic"],
+      "antonyms": ["ordinary", "dull"]
+    },
+    {
+      "word": "Succinct",
+      "pos": "adjective",
+      "meaning": "Briefly and clearly expressed.",
+      "example": "After weeks of feedback asking her to 'expand' and 'elaborate', her supervisor's final comment was unexpectedly simple: 'The abstract is the best part — it's the only section that's succinct. Write the rest like this.'",
+      "synonyms": ["concise", "compact"],
+      "antonyms": ["verbose", "rambling"]
+    },
+    {
+      "word": "Superfluous",
+      "pos": "adjective",
+      "meaning": "Exceeding what is sufficient or required; unnecessary.",
+      "example": "His dissertation was well-argued, but the examiner noted that the entire third chapter, while interesting, was essentially superfluous — it restated what had already been established without adding evidence or advancing the central claim.",
+      "synonyms": ["unnecessary", "redundant"],
+      "antonyms": ["essential", "vital"]
+    },
+    {
+      "word": "Surrogate",
+      "pos": "noun/adjective",
+      "meaning": "A substitute, especially a person taking the role of another.",
+      "example": "For many international students living alone for the first time, their personal tutors quietly become surrogate parents — not by design, but because there is simply no one else nearby to notice when something is genuinely wrong.",
+      "synonyms": ["substitute", "stand-in"],
+      "antonyms": ["original", "actual"]
+    },
+    {
+      "word": "Tantamount",
+      "pos": "adjective",
+      "meaning": "Equivalent in effect or value (usually to something negative).",
+      "example": "In a seminar where the professor directly asked for opinions, staying silent for the entire hour was tantamount to admitting you had not done the reading — everyone in the room understood exactly what it meant.",
+      "synonyms": ["equivalent", "equal"],
+      "antonyms": ["different", "unequal"]
+    },
+    {
+      "word": "Tenacious",
+      "pos": "adjective",
+      "meaning": "Holding firmly; persistent and determined.",
+      "example": "She had been rejected from the programme twice and told informally that her application was unlikely to succeed a third time — but she revised it, reapplied anyway, and was tenacious enough to eventually get the place she had been working toward for two years.",
+      "synonyms": ["persistent", "relentless"],
+      "antonyms": ["weak", "yielding"]
+    },
+    {
+      "word": "Tentative",
+      "pos": "adjective",
+      "meaning": "Not certain or fixed; hesitant.",
+      "example": "They had a tentative agreement to co-author the paper, but nothing had been signed, no roles had been divided, and both of them privately suspected the collaboration might quietly fall apart before it truly started.",
+      "synonyms": ["provisional", "hesitant"],
+      "antonyms": ["definite", "final"]
+    },
+    {
+      "word": "Theology",
+      "pos": "noun",
+      "meaning": "The study of religious belief and the nature of God.",
+      "example": "Most people assumed he had studied theology for personal or spiritual reasons, but he had come to it through philosophy — drawn less by faith than by the rigour with which the discipline forced him to think about the hardest questions a person can ask.",
+      "synonyms": ["divinity", "doctrine"],
+      "antonyms": ["secularism"]
+    },
+    {
+      "word": "Trepidation",
+      "pos": "noun",
+      "meaning": "A feeling of fear or anxiety about something that may happen.",
+      "example": "She had prepared thoroughly, rehearsed her answers, and read every piece of feedback from her mock viva — but as she sat outside the examination room waiting to be called in, the trepidation was impossible to reason away.",
+      "synonyms": ["dread", "anxiety"],
+      "antonyms": ["confidence", "calm"]
+    },
+    {
+      "word": "Ubiquitous",
+      "pos": "adjective",
+      "meaning": "Present or found everywhere.",
+      "example": "The pressure to be 'publishing by your second year' had become ubiquitous in doctoral culture — whispered at inductions, mentioned at seminars, and embedded in every informal conversation about academic careers, regardless of whether it was realistic.",
+      "synonyms": ["widespread", "universal"],
+      "antonyms": ["rare", "scarce"]
+    },
+    {
+      "word": "Usurp",
+      "pos": "verb",
+      "meaning": "To seize a position of power or authority wrongfully.",
+      "example": "The new research coordinator had technically no authority over lab scheduling, but within a semester she had gradually usurped that responsibility from the technician who had managed it for years — and nobody had formally stopped her.",
+      "synonyms": ["seize", "overthrow"],
+      "antonyms": ["surrender", "yield"]
+    },
+    {
+      "word": "Venal",
+      "pos": "adjective",
+      "meaning": "Open to bribery; willing to act dishonestly for money.",
+      "example": "The investigation revealed that three members of the admissions panel had been venal for years — accepting payments routed through consultancy firms to favour applicants from wealthy families over more qualified candidates.",
+      "synonyms": ["corrupt", "bribable"],
+      "antonyms": ["honest", "incorruptible"]
+    },
+    {
+      "word": "Veracity",
+      "pos": "noun",
+      "meaning": "Conformity to truth; truthfulness.",
+      "example": "The interviewer did not doubt his qualifications — those were on paper — but the veracity of several specific claims in his personal statement became harder to defend when the panel began asking for concrete examples.",
+      "synonyms": ["truthfulness", "accuracy"],
+      "antonyms": ["falsehood", "deception"]
+    },
+    {
+      "word": "Vex",
+      "pos": "verb",
+      "meaning": "To irritate, worry, or puzzle.",
+      "example": "What continued to vex her was not the negative result itself — negative results happen — but the fact that she could not identify a single methodological flaw that explained it, which meant the problem might be theoretical, not procedural.",
+      "synonyms": ["irritate", "trouble"],
+      "antonyms": ["soothe", "calm"]
+    }
   ],
+
   "passage": {
     "title": "Three Tragedies, One Mirror",
     "paragraphs": [
