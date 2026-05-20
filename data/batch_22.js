@@ -168,4 +168,4 @@ SEED.push(
       { "q": "The author's tone toward modern readers approaching Shakespeare is:", "opts": ["Patronising", "Encouraging but realistic", "Hostile", "Indifferent"], "ans": 1, "exp": "The writer acknowledges the difficulty but reassures readers that the language opens up quickly." }
     ]
   }
-}
+});
