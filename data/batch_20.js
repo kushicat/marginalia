@@ -45,57 +45,57 @@ SEED.push(
   "passage": {
     "title": "The Cipher at Sadarghat",
     "paragraphs": [
-      "Dhaka in late September is a city of contradictions, and Arman Chowdhury had learned, over fourteen years in the trade, that contradictions were exactly where good intelligence hid. The river at Sadarghat carried diesel, garlands, gossip, and occasionally bodies, all with the same indifferent current. On the morning the cable arrived from Singapore, Arman was sipping milk tea at a stall whose owner he had quietly **[[patronize|patronized]]** every Tuesday for nine years. The old man never asked questions. That, in this city, was a rarer virtue than honesty.",
+      "Dhaka in late September is a city of contradictions, and Arman Chowdhury had learned, over fourteen years in the trade, that contradictions were exactly where good intelligence hid. The river at Sadarghat carried diesel, garlands, gossip, and occasionally bodies, all with the same indifferent current. On the morning the cable arrived from Singapore, Arman was sipping milk tea at a stall whose owner he had quietly  [[patronize|patronized]]  every Tuesday for nine years. The old man never asked questions. That, in this city, was a rarer virtue than honesty.",
 
-      "The cable was short, almost an **[[Epigram|epigram]]**: *Bird returns. Cage open. Confirm.* Three lines, but enough to set in motion what would later be called the most **[[Pivotal|pivotal]]** counter-intelligence operation of the decade. The bird was Faridul Haque, once a junior analyst at the central bank, who had vanished in 2019 after the **[[Precipitous|precipitous]]** collapse of a shell company everyone politely pretended not to understand. Faridul was supposed to be dead. Faridul, evidently, had **[[Qualify|qualified]]** that assumption.",
+      "The cable was short, almost an  [[Epigram|epigram]] : *Bird returns. Cage open. Confirm.* Three lines, but enough to set in motion what would later be called the most  [[Pivotal|pivotal]]  counter-intelligence operation of the decade. The bird was Faridul Haque, once a junior analyst at the central bank, who had vanished in 2019 after the  [[Precipitous|precipitous]]  collapse of a shell company everyone politely pretended not to understand. Faridul was supposed to be dead. Faridul, evidently, had  [[Qualify|qualified]]  that assumption.",
 
-      "Arman read the cable twice, folded it into a paan wrapper, and walked toward the launch terminal. He was not, by temperament, an **[[Orthodox|orthodox]]** intelligence officer. The old hands at the agency liked exhaustive paperwork, **[[Exhaustive|exhaustive]]** dossiers, and the comfort of established **[[Precedent|precedent]]**. Arman preferred his work the way Dhaka preferred its biryani: layered, slightly chaotic, and best understood by people who had grown up inside it.",
+      "Arman read the cable twice, folded it into a paan wrapper, and walked toward the launch terminal. He was not, by temperament, an  [[Orthodox|orthodox]]  intelligence officer. The old hands at the agency liked exhaustive paperwork,  [[Exhaustive|exhaustive]]  dossiers, and the comfort of established  [[Precedent|precedent]] . Arman preferred his work the way Dhaka preferred its biryani: layered, slightly chaotic, and best understood by people who had grown up inside it.",
 
-      "He thought of an old Bangla proverb his grandmother used to **[[Expatiate|expatiate]]** upon during load-shedding evenings: *'Chor palaile buddhi bare'* — wisdom grows only after the thief has fled. The agency, in his private view, was full of people growing very wise about thieves long gone.",
-
-      "__break__",
-
-      "By noon, the **[[Ostensible|ostensible]]** purpose of his trip was a meeting at a freight office near Postogola. The real purpose, of course, was Faridul. Years ago, the two had been friends, almost brothers. They had **[[Espouse|espoused]]** the same reformist ideas in the same smoky chambers of Dhaka University, where every undergraduate is briefly a **[[Proponent|proponent]]** of something he will later quietly disown. Arman had stayed in the system. Faridul had not. The **[[Paradox|paradox]]** of their friendship was that they had ended up on opposite sides of the same fight, each believing he was the loyal one.",
-
-      "At the freight office, a clerk with **[[Plaintive|plaintive]]** eyes handed him a sealed envelope. Inside was a single photograph: Faridul, gaunt but alive, standing on the deck of a Chittagong-bound launch, half his face turned toward the camera as if daring the lens to recognize him. The **[[Portent|portent]]** was unmistakable. He was not hiding anymore. He wanted to be seen.",
-
-      "Arman felt a sharp, unwelcome wave of **[[Nostalgia|nostalgia]]** — the boys they had been, the cheap cigarettes, the **[[Paltry|paltry]]** stipends they had stretched into weekends at Nilkhet. The feeling was **[[Ethereal|ethereal]]**, almost dreamlike, and he shook it off the way one shakes off a mosquito at dusk. Sentiment, in this trade, was a luxury one could not afford without paying interest.",
+      "He thought of an old Bangla proverb his grandmother used to  [[Expatiate|expatiate]]  upon during load-shedding evenings: *'Chor palaile buddhi bare'* — wisdom grows only after the thief has fled. The agency, in his private view, was full of people growing very wise about thieves long gone.",
 
       "__break__",
 
-      "The intelligence picture was **[[Equivocal|equivocal]]** at best. Three foreign services were active in Dhaka that month. One had **[[Promulgate|promulgated]]**, through carefully placed editorials, a narrative that the central bank breach of 2016 was about to receive 'fresh disclosures'. Another, less subtle, had begun to **[[Prepossess|prepossess]]** local journalists with off-the-record dinners at five-star hotels. The third was Arman's particular concern: it preferred to operate through Bangladeshi assets, exploiting the **[[Parochial|parochial]]** rivalries between bureaucratic factions that, in his honest opinion, **[[Exemplify|exemplified]]** everything wrong with Dhaka's political culture.",
+      "By noon, the  [[Ostensible|ostensible]]  purpose of his trip was a meeting at a freight office near Postogola. The real purpose, of course, was Faridul. Years ago, the two had been friends, almost brothers. They had  [[Espouse|espoused]]  the same reformist ideas in the same smoky chambers of Dhaka University, where every undergraduate is briefly a  [[Proponent|proponent]]  of something he will later quietly disown. Arman had stayed in the system. Faridul had not. The  [[Paradox|paradox]]  of their friendship was that they had ended up on opposite sides of the same fight, each believing he was the loyal one.",
 
-      "He briefed his deputy, Nazia, in the **[[Provisional|provisional]]** safe-house above a tailor's shop in Bangshal. Nazia was twenty-nine, a Comilla girl with a first-class degree and an irritating habit of being right. She listened, then said quietly, '*Sir, this is not a defection. This is a confession.*'",
+      "At the freight office, a clerk with  [[Plaintive|plaintive]]  eyes handed him a sealed envelope. Inside was a single photograph: Faridul, gaunt but alive, standing on the deck of a Chittagong-bound launch, half his face turned toward the camera as if daring the lens to recognize him. The  [[Portent|portent]]  was unmistakable. He was not hiding anymore. He wanted to be seen.",
+
+      "Arman felt a sharp, unwelcome wave of  [[Nostalgia|nostalgia]]  — the boys they had been, the cheap cigarettes, the  [[Paltry|paltry]]  stipends they had stretched into weekends at Nilkhet. The feeling was  [[Ethereal|ethereal]] , almost dreamlike, and he shook it off the way one shakes off a mosquito at dusk. Sentiment, in this trade, was a luxury one could not afford without paying interest.",
+
+      "__break__",
+
+      "The intelligence picture was  [[Equivocal|equivocal]]  at best. Three foreign services were active in Dhaka that month. One had  [[Promulgate|promulgated]] , through carefully placed editorials, a narrative that the central bank breach of 2016 was about to receive 'fresh disclosures'. Another, less subtle, had begun to  [[Prepossess|prepossess]]  local journalists with off-the-record dinners at five-star hotels. The third was Arman's particular concern: it preferred to operate through Bangladeshi assets, exploiting the  [[Parochial|parochial]]  rivalries between bureaucratic factions that, in his honest opinion,  [[Exemplify|exemplified]]  everything wrong with Dhaka's political culture.",
+
+      "He briefed his deputy, Nazia, in the  [[Provisional|provisional]]  safe-house above a tailor's shop in Bangshal. Nazia was twenty-nine, a Comilla girl with a first-class degree and an irritating habit of being right. She listened, then said quietly, '*Sir, this is not a defection. This is a confession.*'",
 
       "'Explain.'",
 
-      "'Faridul wants to come back **[[Penitent|penitent]]**. He wants to name people. The question is whether the names will **[[Prevail|prevail]]** against the people who own this city.'",
+      "'Faridul wants to come back  [[Penitent|penitent]] . He wants to name people. The question is whether the names will  [[Prevail|prevail]]  against the people who own this city.'",
 
-      "Arman almost smiled. She had cut through in one sentence what three desks at headquarters had failed to articulate in a week. He did not, of course, **[[Patronize|patronize]]** her with praise. In the trade, praise was a form of indebtedness.",
+      "Arman almost smiled. She had cut through in one sentence what three desks at headquarters had failed to articulate in a week. He did not, of course,  [[Patronize|patronize]]  her with praise. In the trade, praise was a form of indebtedness.",
 
       "__break__",
 
-      "What Faridul knew, Arman suspected, was not espionage in the cinematic sense. It was something duller and more dangerous: a paper trail. A trail that began with what bureaucrats called a **[[Peccadillo|peccadillo]]** — a small irregularity in a 2014 procurement file — and ended with the **[[Perfidy|perfidy]]** of three signatures that had quietly redirected millions through a Manila clearinghouse. Each signature belonged to a man now considered untouchable. Each man had, at various points, been considered a patriot.",
+      "What Faridul knew, Arman suspected, was not espionage in the cinematic sense. It was something duller and more dangerous: a paper trail. A trail that began with what bureaucrats called a  [[Peccadillo|peccadillo]]  — a small irregularity in a 2014 procurement file — and ended with the  [[Perfidy|perfidy]]  of three signatures that had quietly redirected millions through a Manila clearinghouse. Each signature belonged to a man now considered untouchable. Each man had, at various points, been considered a patriot.",
 
-      "It would **[[Exasperate|exasperate]]** any honest officer. It did exasperate Arman. But exasperation was not a strategy, and he had learned long ago that righteousness was the most **[[Expedient|expedient]]** way to get oneself transferred to a border post.",
+      "It would  [[Exasperate|exasperate]]  any honest officer. It did exasperate Arman. But exasperation was not a strategy, and he had learned long ago that righteousness was the most  [[Expedient|expedient]]  way to get oneself transferred to a border post.",
 
-      "He thought, briefly, of the **[[Existential|existential]]** question his old professor used to ask first-year students: *If a state betrays its own people quietly enough, has it betrayed them at all?* The class had laughed then. Nobody was laughing now.",
+      "He thought, briefly, of the  [[Existential|existential]]  question his old professor used to ask first-year students: *If a state betrays its own people quietly enough, has it betrayed them at all?* The class had laughed then. Nobody was laughing now.",
 
-      "There was also, in the corners of his mind, a darker temptation. The **[[Nihilism|nihilism]]** of the long-serving officer, the voice that whispered that nothing one did mattered, that the file would be buried regardless, that the smart play was to take leave, visit one's mother in Sylhet, and let the next generation be **[[Obtuse|obtuse]]** enough to try. He had heard that voice before. He had, on three separate occasions, listened to it. He was not proud of those occasions.",
+      "There was also, in the corners of his mind, a darker temptation. The  [[Nihilism|nihilism]]  of the long-serving officer, the voice that whispered that nothing one did mattered, that the file would be buried regardless, that the smart play was to take leave, visit one's mother in Sylhet, and let the next generation be  [[Obtuse|obtuse]]  enough to try. He had heard that voice before. He had, on three separate occasions, listened to it. He was not proud of those occasions.",
 
       "__break__",
 
       "On the fourth night, Faridul made contact. Not by phone, not by drop, but in person, in a manner so audacious that Arman almost respected it. He simply walked into the small mosque near Arman's flat at Maghrib, prayed two rakats, and sat beside him on the cool tile.",
 
-      "'*Bhai,*' Faridul said, eyes forward, '*I have eleven months left, the doctor in Bangkok says. I do not have time for an **[[Exhaustive|exhaustive]]** trial. I want to give you what I have. All of it. Today.*'",
+      "'*Bhai,*' Faridul said, eyes forward, '*I have eleven months left, the doctor in Bangkok says. I do not have time for an  [[Exhaustive|exhaustive]]  trial. I want to give you what I have. All of it. Today.*'",
 
       "Arman did not turn. '*And what do you want in return?*'",
 
-      "Faridul almost laughed. '*Forgiveness? No. That is too much to ask. Just... a record. Something that survives me. Something that becomes a **[[Precedent|precedent]]** they cannot bury.*'",
+      "Faridul almost laughed. '*Forgiveness? No. That is too much to ask. Just... a record. Something that survives me. Something that becomes a  [[Precedent|precedent]]  they cannot bury.*'",
 
       "For a long moment, only the muezzin's last echo answered. Then Arman said, very softly, '*You realise that the moment I take your file, you become the most hunted man in three districts.*'",
 
-      "'I have been hunted for six years, Arman. At least now the hunters will have a **[[Pertinent|pertinent]]** reason.'",
+      "'I have been hunted for six years, Arman. At least now the hunters will have a  [[Pertinent|pertinent]]  reason.'",
 
       "__break__",
 
@@ -109,21 +109,21 @@ SEED.push(
 
       "__break__",
 
-      "In the weeks that followed, the file moved through channels Arman had spent a decade quietly building. A friendly editor at a national daily, an honest deputy commissioner in Chittagong, a retired judge whose final wish was to do one useful thing before his pension ran out. None of them were heroes. All of them, in their small ways, **[[Exemplify|exemplified]]** what the country still had: ordinary people unwilling, in the end, to be quite as **[[Obtuse|obtuse]]** as the system needed them to be.",
+      "In the weeks that followed, the file moved through channels Arman had spent a decade quietly building. A friendly editor at a national daily, an honest deputy commissioner in Chittagong, a retired judge whose final wish was to do one useful thing before his pension ran out. None of them were heroes. All of them, in their small ways,  [[Exemplify|exemplified]]  what the country still had: ordinary people unwilling, in the end, to be quite as  [[Obtuse|obtuse]]  as the system needed them to be.",
 
       "The story broke on a Friday. The arrests were neither swift nor complete. Two of the three signatories slipped abroad within hours, on what one tabloid described, with bitter wit, as *'urgent medical grounds for diseases no doctor has yet named.'* But one stayed. One was caught. And in this country, in this decade, one was more than precedent allowed.",
 
-      "Arman read the headlines from a safe-house in Cox's Bazar, where the sea performed its old, indifferent epigram against the rocks. Nazia called once, to confirm he was alive. She did not **[[Expatiate|expatiate]]** on the operation. She simply said, '*Sir, the orthodox would say we lost. I think we won.*'",
+      "Arman read the headlines from a safe-house in Cox's Bazar, where the sea performed its old, indifferent epigram against the rocks. Nazia called once, to confirm he was alive. She did not  [[Expatiate|expatiate]]  on the operation. She simply said, '*Sir, the orthodox would say we lost. I think we won.*'",
 
       "He thought about that for a long time.",
 
-      "Faridul died in a Bangkok hospital eight weeks later. The notice was a **[[Paltry|paltry]]** three lines in an inside page. No state honours. No flag. Just a name, a date, and the small, stubborn fact that he had, at the end, done a **[[Pivotal|pivotal]]** thing.",
+      "Faridul died in a Bangkok hospital eight weeks later. The notice was a  [[Paltry|paltry]]  three lines in an inside page. No state honours. No flag. Just a name, a date, and the small, stubborn fact that he had, at the end, done a  [[Pivotal|pivotal]]  thing.",
 
-      "Arman folded the newspaper, ordered another cup of tea, and watched the sea perform its **[[Ethereal|ethereal]]** morning trick of turning grey into gold. He thought of his grandmother's proverb. He thought of Nazia's sentence. He thought of how easily he might have chosen the **[[Expedient|expedient]]** path, and how strangely the inconvenient one had, this once, allowed something like justice to **[[Prevail|prevail]]**.",
+      "Arman folded the newspaper, ordered another cup of tea, and watched the sea perform its  [[Ethereal|ethereal]]  morning trick of turning grey into gold. He thought of his grandmother's proverb. He thought of Nazia's sentence. He thought of how easily he might have chosen the  [[Expedient|expedient]]  path, and how strangely the inconvenient one had, this once, allowed something like justice to  [[Prevail|prevail]] .",
 
-      "In the trade, they say no operation truly ends. Files reopen. Names resurface. Loyalties shift. But for one quiet morning at the edge of the country, in a city that had taught him everything he knew about **[[Perfidy|perfidy]]** and patience, Arman Chowdhury allowed himself the **[[Paradox|paradox]]** of a small, **[[Penitent|penitent]]** smile. He was not proud. He was not sentimental. He was simply, for the first time in a long time, not ashamed.",
+      "In the trade, they say no operation truly ends. Files reopen. Names resurface. Loyalties shift. But for one quiet morning at the edge of the country, in a city that had taught him everything he knew about  [[Perfidy|perfidy]]  and patience, Arman Chowdhury allowed himself the  [[Paradox|paradox]]  of a small,  [[Penitent|penitent]]  smile. He was not proud. He was not sentimental. He was simply, for the first time in a long time, not ashamed.",
 
-      "And that, in this country, in this profession, was already more than most men ever **[[Qualify|qualified]]** for."
+      "And that, in this country, in this profession, was already more than most men ever  [[Qualify|qualified]]  for."
     ]
   },
   "questions": {
