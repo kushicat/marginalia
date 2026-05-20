@@ -2,10 +2,9 @@ SEED.push(
 {
   "id": "batch_20",
   "title": "Digital Education vs Traditional Classroom Debate Passage",
-  "subtitle": "Vocabulary-rich argumentative passage for competitive exams",
-  "difficulty": "High",
+  "difficulty": "Medium Frequency",
   "readingTime": "5–7 min",
-  "wordCount": 3200,
+  "wordCount": 30,
   "words": [
     {
       "word": "epigram",
